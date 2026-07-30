@@ -1,0 +1,3 @@
+display_name: AISDD
+short_description: Especificações, planos e agentes para entrega de software
+default_prompt: Use $aisdd para classificar a mudança, especificar, planejar, implementar, validar, revisar e documentar o trabalho.
