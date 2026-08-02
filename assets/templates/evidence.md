@@ -21,4 +21,13 @@ quando o comando terminou com êxito, o teste anotado não está pulado e o mapa
 
 ## Checks não executados
 
+## Rastreabilidade de agentes
+
+Preencha para T2+ quando houver delegação. Não invente modelo ou effort efetivo quando o runtime não os expuser.
+
+| Papel | Agente | Tarefa | Modelo solicitado | Effort solicitado | Modelo efetivo | Effort efetivo | Fallback | Resultado |
+|---|---|---|---|---|---|---|---|---|
+
+Resumo: agentes usados: 0; fallbacks: 0.
+
 ## Riscos residuais

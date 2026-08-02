@@ -1,0 +1,46 @@
+[fallback]
+model = "inherit"
+reasoning_effort = "inherit"
+
+[tiers.economy]
+model_patterns = ["(?i)(?:^|-)5\\.6-luna$", "(?i)(?:^|-)5\\.4-mini$"]
+effort_order = ["low", "medium", "high", "xhigh", "max"]
+
+[tiers.standard]
+model_patterns = ["(?i)(?:^|-)5\\.6-terra$", "(?i)(?:^|-)5\\.4$"]
+effort_order = ["medium", "high", "low", "xhigh", "max", "ultra"]
+
+[roles.explorer]
+model = "gpt-5.6-luna"
+reasoning_effort = "low"
+tier = "economy"
+
+[roles.planner]
+model = "gpt-5.6-terra"
+reasoning_effort = "medium"
+tier = "standard"
+
+[roles.implementer]
+model = "gpt-5.6-terra"
+reasoning_effort = "medium"
+tier = "standard"
+
+[roles.tester]
+model = "gpt-5.6-terra"
+reasoning_effort = "medium"
+tier = "standard"
+
+[roles.reviewer]
+model = "gpt-5.6-terra"
+reasoning_effort = "high"
+tier = "standard"
+
+[roles.architect]
+model = "gpt-5.6-terra"
+reasoning_effort = "high"
+tier = "standard"
+
+[roles.documentation-reviewer]
+model = "gpt-5.6-luna"
+reasoning_effort = "low"
+tier = "economy"

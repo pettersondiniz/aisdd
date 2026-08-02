@@ -19,7 +19,12 @@ def main() -> int:
         return 0
     validator = Path(__file__).with_name("validate_feature.py")
     failures: list[str] = []
+    pending_baseline_gaps: list[str] = []
     for feature in sorted(x for x in specs.iterdir() if x.is_dir()):
+        status = feature / "status.md"
+        if feature.name.startswith("baseline-") and status.exists() and "Origem: baseline-conformance" in status.read_text(encoding="utf-8", errors="ignore"):
+            pending_baseline_gaps.append(feature.name)
+            continue
         result = subprocess.run(
             [sys.executable, str(validator), str(repo), str(feature.relative_to(repo))],
             cwd=repo,
@@ -34,6 +39,10 @@ def main() -> int:
         print("DRIFT ENCONTRADO")
         print("\n".join(f"- {item}" for item in failures))
         return 1
+    if pending_baseline_gaps:
+        print("OK: nenhum drift estrutural ou de rastreabilidade encontrado")
+        print("FOLLOW-UPS DE BASELINE PENDENTES: " + ", ".join(pending_baseline_gaps))
+        return 0
     print("OK: nenhum drift estrutural ou de rastreabilidade encontrado")
     return 0
 

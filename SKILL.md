@@ -37,6 +37,14 @@ Use the custom agents in `agents/` when the Codex runtime supports subagents. Ag
 
 Select agents according to `references/agent-routing.md`. Prefer parallel read-only work. Serialize write-heavy implementation and documentation work. State what each agent must return, wait for all required agents, and combine concise findings.
 
+## Model routing
+
+For multi-agent work, read `references/model-routing.md` before spawning agents. Query the current runtime for available model and reasoning-effort pairs, then call `scripts/model_routing.py` with that availability and the selected role. The user-global mapping lives at `~/.codex/aisdd/model-routing.toml`; use `assets/templates/model-routing.toml` as the default when it does not exist. The script only reports recommendations and never creates or changes the global mapping.
+
+If a configured model is unavailable, spawn without a model or effort override so the subagent inherits the current chat configuration. State that fallback, list the available choices and the tier-based suggestions, then ask whether the user wants to update any roles or efforts. Change the global mapping only after explicit confirmation. Never claim that static configuration proves a model is available.
+
+For T2+, record every delegated agent in `evidence.md`: role, agent identifier, task, requested model and effort, effective model and effort when the runtime exposes them, fallback, and result. Count the agents in a summary. When the runtime does not expose effective settings, record `unknown` or `inherited` rather than guessing.
+
 ## Required artifacts
 
 For a feature folder `specs/<slug>/`, keep:
@@ -57,6 +65,12 @@ Do not claim completion until `references/completion-standard.md` is satisfied. 
 
 For a user-facing change, prefer validation in a real browser. First detect available capabilities. Prefer `playwright-cli` for repeatable browser flows and evidence; use Playwright MCP for interactive inspection, browser-session state, or live debugging when it is available to the runtime. Do not require both tools for the same scenario. If neither is available, use the strongest available project-native or approved browser validation, record the limitation, and never claim real-browser proof that was not obtained. Recommend enabling Playwright tooling for interface work, but never install it without explicit user authorization. Read `references/interface-validation.md` before planning or judging interface evidence.
 
+For UI-affecting features, record in `evidence.md` whether Impeccable was used. When used, record role, action and purpose; when not used, record the reason. Its use and installation remain optional and never block completion.
+
+## Baseline conformance
+
+Offer `baseline-conformance` only for projects that began without AISDD. Run it only on explicit user request and follow `references/baseline-conformance.md`. It may create documentation and follow-up specs but must never alter product code, tests, dependencies, runtime configuration, infrastructure, database, or CI.
+
 ## Scripts
 
 Run from the skill directory or pass `--skill-dir` when needed:
@@ -67,6 +81,8 @@ python scripts/create_feature.py <repo> "Feature name" --class T2
 python scripts/verify_feature.py <repo> specs/<slug> -- <real-test-command>
 python scripts/validate_feature.py <repo> specs/<slug>
 python scripts/check_drift.py <repo>
+python scripts/model_routing.py --role reviewer --class T2 --availability-json available-models.json
+python scripts/baseline_conformance.py <repo> --baseline-id <id>
 ```
 
 These scripts are deterministic scaffolding and checks, not substitutes for reading the code or exercising the application.

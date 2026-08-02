@@ -1,0 +1,7 @@
+{
+  "models": [
+    {"id": "dinizpe-5.4-mini", "reasoning_efforts": ["low", "medium", "high", "xhigh"]},
+    {"id": "dinizpe-5.4", "reasoning_efforts": ["low", "medium", "high", "xhigh"]},
+    {"id": "dinizpe-5.6-luna", "reasoning_efforts": ["low", "medium", "high", "xhigh", "max"]}
+  ]
+}

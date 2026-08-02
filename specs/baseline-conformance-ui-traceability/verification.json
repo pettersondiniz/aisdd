@@ -1,45 +1,51 @@
 {
-  "feature": "playwright-validation-guidance",
-  "generated_at": "2026-08-02T17:13:26.856017+00:00",
+  "feature": "baseline-conformance-ui-traceability",
+  "generated_at": "2026-08-02T17:13:30.778338+00:00",
   "command": [
     "python",
     "tests\\test_interface_validation.py"
   ],
   "exit_code": 0,
   "criteria": [
-    "AC-001",
-    "AC-002"
+    "AC-201",
+    "AC-202",
+    "AC-203",
+    "AC-204"
   ],
   "test_map": {
-    "AC-001": [
+    "AC-201": [
       {
         "path": "tests/test_interface_validation.py",
-        "line": 14,
-        "file_sha256": "0f3118ac49fb3ae07ab5a8fc1aa2b8687a546861c2cc26b5340fba0663fdf92a",
-        "skipped": false
-      },
-      {
-        "path": "tests/test_interface_validation.py",
-        "line": 27,
+        "line": 71,
         "file_sha256": "0f3118ac49fb3ae07ab5a8fc1aa2b8687a546861c2cc26b5340fba0663fdf92a",
         "skipped": false
       }
     ],
-    "AC-002": [
+    "AC-202": [
       {
         "path": "tests/test_interface_validation.py",
-        "line": 21,
+        "line": 79,
         "file_sha256": "0f3118ac49fb3ae07ab5a8fc1aa2b8687a546861c2cc26b5340fba0663fdf92a",
         "skipped": false
-      },
+      }
+    ],
+    "AC-203": [
       {
         "path": "tests/test_interface_validation.py",
-        "line": 34,
+        "line": 86,
+        "file_sha256": "0f3118ac49fb3ae07ab5a8fc1aa2b8687a546861c2cc26b5340fba0663fdf92a",
+        "skipped": false
+      }
+    ],
+    "AC-204": [
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 100,
         "file_sha256": "0f3118ac49fb3ae07ab5a8fc1aa2b8687a546861c2cc26b5340fba0663fdf92a",
         "skipped": false
       }
     ]
   },
-  "mapping_sha256": "757721276ce4674e585f8c231ffb0027ea9d637ce1e80fcd16268cb7e784596d",
+  "mapping_sha256": "c3fba893bc8c0f237fcc2a7b2094299c5388c7830e569508d45dd91b737a2152",
   "passed": true
 }
