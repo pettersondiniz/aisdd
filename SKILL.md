@@ -10,7 +10,7 @@ AISDD is a repository-centered workflow for specification-driven, agent-assisted
 ## Route the request
 
 1. Inspect the repository, existing `AGENTS.md`, `docs/`, `specs/`, code, tests, and available commands before editing.
-2. Detect whether the request changes a user-facing interface. If it does, check whether `impeccable` is installed; when absent, propose its installation before design work, but never install it without explicit user authorization. When present, route its use according to `references/agent-routing.md`.
+2. Detect whether the request changes a user-facing interface. If it does, check whether `impeccable` is installed; when absent, propose its installation before design work, but never install it without explicit user authorization. When present, route its use according to `references/agent-routing.md`. Assess browser-validation capabilities using `references/interface-validation.md`; Playwright is preferred when available, never required.
 3. Classify the change using `references/classification.md`. Use the highest applicable class.
 4. For T0, make the mechanical change and run the smallest relevant check.
 5. For T1, create or update a lightweight feature folder and plan.
@@ -53,6 +53,10 @@ Use `docs/architecture/decisions/ADR-*.md` for durable architectural decisions. 
 
 Do not claim completion until `references/completion-standard.md` is satisfied. For a feature, run its real test command through `scripts/verify_feature.py`, then run `scripts/validate_feature.py`; run `scripts/check_drift.py` for the repository when applicable. Report skipped checks honestly. A passing test command without an `@spec:AC-xxx` mapping is not proof for an acceptance criterion.
 
+## Interface validation
+
+For a user-facing change, prefer validation in a real browser. First detect available capabilities. Prefer `playwright-cli` for repeatable browser flows and evidence; use Playwright MCP for interactive inspection, browser-session state, or live debugging when it is available to the runtime. Do not require both tools for the same scenario. If neither is available, use the strongest available project-native or approved browser validation, record the limitation, and never claim real-browser proof that was not obtained. Recommend enabling Playwright tooling for interface work, but never install it without explicit user authorization. Read `references/interface-validation.md` before planning or judging interface evidence.
+
 ## Scripts
 
 Run from the skill directory or pass `--skill-dir` when needed:
@@ -77,3 +81,4 @@ These scripts are deterministic scaffolding and checks, not substitutes for read
 - `references/review-standard.md` — independent review rubric.
 - `references/documentation-policy.md` — what to update and when.
 - `references/agent-routing.md` — agent selection and concurrency rules.
+- `references/interface-validation.md` — browser-validation capability selection and evidence.

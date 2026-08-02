@@ -1,0 +1,33 @@
+{
+  "feature": "playwright-validation-guidance",
+  "generated_at": "2026-08-02T01:54:06.040587+00:00",
+  "command": [
+    "python",
+    "tests\\test_interface_validation.py"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-001",
+    "AC-002"
+  ],
+  "test_map": {
+    "AC-001": [
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 9,
+        "file_sha256": "a2de46aff217c73b2f011ae06f1dc950ec27ece1aadf0a6a9ee3c03238d787b6",
+        "skipped": false
+      }
+    ],
+    "AC-002": [
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 16,
+        "file_sha256": "a2de46aff217c73b2f011ae06f1dc950ec27ece1aadf0a6a9ee3c03238d787b6",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "21c506f54cf6add8a0b19b28099dfe4e6012e637c4062cb5548d82f2c412cdfc",
+  "passed": true
+}
