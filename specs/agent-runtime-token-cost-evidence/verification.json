@@ -1,0 +1,83 @@
+{
+  "feature": "agent-runtime-token-cost-evidence",
+  "generated_at": "2026-08-03T01:47:09.469955+00:00",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-501",
+    "AC-502",
+    "AC-503",
+    "AC-504",
+    "AC-505"
+  ],
+  "test_map": {
+    "AC-501": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 122,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      }
+    ],
+    "AC-502": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 150,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 253,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      }
+    ],
+    "AC-503": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 168,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 276,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 299,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      }
+    ],
+    "AC-504": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 191,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      }
+    ],
+    "AC-505": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 228,
+        "file_sha256": "1749a7620984ea3a85f2583e58c31df83ec6ca244f4d032766d2c18eeacd4e7c",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "74aac92bc18b09db4f6e8b67372910239c8ffbf6bdcfdc6ba0e800e384802425",
+  "passed": true
+}

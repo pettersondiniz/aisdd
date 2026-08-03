@@ -43,7 +43,7 @@ For multi-agent work, read `references/model-routing.md` before spawning agents.
 
 If a configured model is unavailable, spawn without a model or effort override so the subagent inherits the current chat configuration. State that fallback, list the available choices and the tier-based suggestions, then ask whether the user wants to update any roles or efforts. Change the global mapping only after explicit confirmation. Never claim that static configuration proves a model is available.
 
-For T2+, record every delegated agent in `evidence.md`: role, agent identifier, task, requested model and effort, effective model and effort when the runtime exposes them, fallback, and result. Count the agents in a summary. When the runtime does not expose effective settings, record `unknown` or `inherited` rather than guessing.
+For T2+, record every delegated agent in `evidence.md`: role, agent identifier, task, requested model and effort, effective model and effort when the runtime exposes them, fallback, and result. After the child completes, run `scripts/agent_evidence.py` against its local rollout, using its agent identifier or a uniquely scoped legacy selector, and record all returned token categories and cost estimate in the agent table whenever telemetry is complete. Treat its last readable `turn_context` as the best local evidence for the observed effective settings and record its source; it is not proof of every backend inference in a multi-turn agent. The script reports input, cache, cache-write, output, reasoning-output, and a token-only API-equivalent estimate. It reads `~/.codex/aisdd/cost-pricing.toml`, or `assets/templates/cost-pricing.toml` when the user table is absent. It excludes tool/modality fees and subscription billing. Context-long pricing is ignored by default and the returned estimate is flagged as potentially imprecise; use `--respect-long-context` to refuse such estimates when request-level telemetry is unavailable. If any other telemetry or the model price is unavailable, record that limitation rather than estimating. Count the agents and token-only estimates in a summary.
 
 ## Required artifacts
 
@@ -82,6 +82,10 @@ python scripts/verify_feature.py <repo> specs/<slug> -- <real-test-command>
 python scripts/validate_feature.py <repo> specs/<slug>
 python scripts/check_drift.py <repo>
 python scripts/model_routing.py --role reviewer --class T2 --availability-json available-models.json
+python scripts/agent_evidence.py --agent-id /root/reviewer --json
+python scripts/agent_evidence.py --rollout-id <id-do-rollout> --json
+python scripts/agent_evidence.py --agent-id /root/reviewer --pricing-config <tabela-de-precos.toml> --json
+python scripts/agent_evidence.py --agent-id /root/reviewer --respect-long-context --json
 python scripts/baseline_conformance.py <repo> --baseline-id <id>
 ```
 

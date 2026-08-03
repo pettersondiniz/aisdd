@@ -41,7 +41,7 @@ class InterfaceValidationGuidanceTests(unittest.TestCase):
     def test_model_router_recommends_dedicated_equivalent_when_configured_model_is_missing(self) -> None:
         availability = ROOT / "tests" / "fixtures" / "dedicated-models.json"
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "model_routing.py"), "--role", "explorer", "--availability-json", str(availability), "--json"],
+            [sys.executable, str(ROOT / "scripts" / "model_routing.py"), "--config", str(ROOT / "assets" / "templates" / "model-routing.toml"), "--role", "explorer", "--availability-json", str(availability), "--json"],
             check=True, capture_output=True, text=True,
         )
         payload = json.loads(result.stdout)
@@ -51,7 +51,7 @@ class InterfaceValidationGuidanceTests(unittest.TestCase):
     # @spec:AC-102
     def test_model_router_returns_inherit_fallback_without_availability(self) -> None:
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "model_routing.py"), "--role", "reviewer", "--json"],
+                [sys.executable, str(ROOT / "scripts" / "model_routing.py"), "--config", str(ROOT / "assets" / "templates" / "model-routing.toml"), "--role", "reviewer", "--json"],
             check=True, capture_output=True, text=True,
         )
         payload = json.loads(result.stdout)
@@ -121,6 +121,10 @@ class InterfaceValidationGuidanceTests(unittest.TestCase):
         self.assertIn("## Rastreabilidade de agentes", template)
         self.assertIn("Modelo solicitado", template)
         self.assertIn("Modelo efetivo", template)
+        self.assertIn("Fonte efetiva", template)
+        self.assertIn("agent_evidence.py", template)
+        self.assertIn("Tokens/categorias observados", template)
+        self.assertIn("Custo API estimado", template)
         self.assertIn("Não invente", template)
 
 

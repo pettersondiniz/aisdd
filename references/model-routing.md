@@ -28,3 +28,25 @@ Apresente ao usuÃ¡rio:
 4. a opÃ§Ã£o de manter o fallback somente nesta execuÃ§Ã£o.
 
 Pergunte se deseja aplicar uma sugestÃ£o, escolher outro modelo/effort, editar outros papÃ©is ou manter o fallback sem salvar. Atualize `~/.codex/aisdd/model-routing.toml` somente com confirmaÃ§Ã£o explÃ­cita. Ao alterar, mostre o diff e preserve as entradas nÃ£o relacionadas.
+
+## EvidÃªncia efetiva apÃ³s a delegaÃ§Ã£o
+
+Depois de o subagente terminar, tente obter a configuraÃ§Ã£o efetiva do rollout local:
+
+```text
+python scripts/agent_evidence.py --agent-id <identificador-do-agente> --json
+```
+
+Quando o runtime informar o UUID terminal do rollout filho, prefira a correlação direta. Não use prefixos parciais:
+
+```text
+python scripts/agent_evidence.py --rollout-id <id-do-rollout> --json
+```
+
+Em runtimes legados, quando o identificador nÃ£o estiver no metadado do filho, use uma combinaÃ§Ã£o que seja Ãºnica:
+
+```text
+python scripts/agent_evidence.py --role reviewer --parent-session-id <id-do-pai> --json
+```
+
+O script lÃª `turn_context` em `~/.codex/sessions/**/rollout-*.jsonl`. `effective.model` e `effective.reasoning_effort` refletem o Ãºltimo contexto legÃ­vel do rollout e sÃ£o a melhor evidÃªncia local observÃ¡vel; compare-os ao pedido do spawn. NÃ£o os trate como prova de cada inferÃªncia de um agente multi-turn. Se o resultado for `not-available`, `not-found` ou `ambiguous`, registre o modelo/effort efetivo como `unknown` e a limitaÃ§Ã£o, sem inferir pela resposta do agente ou pela interface.

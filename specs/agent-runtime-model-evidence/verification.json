@@ -1,0 +1,80 @@
+{
+  "feature": "agent-runtime-model-evidence",
+  "generated_at": "2026-08-03T01:42:51.669267+00:00",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-401",
+    "AC-402",
+    "AC-403",
+    "AC-404"
+  ],
+  "test_map": {
+    "AC-401": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 37,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 70,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      }
+    ],
+    "AC-402": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 49,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      }
+    ],
+    "AC-403": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 59,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 99,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 115,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      }
+    ],
+    "AC-404": [
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 81,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_agent_evidence.py",
+        "line": 91,
+        "file_sha256": "c0c36fc75ab5ee68e8876d94f72ea173b156d8a2aa4fad5bc8e95bfcfc281b99",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "c17325aff68411f12acd2ea42b05046cd7201a552b91486b61e9c76226015f4e",
+  "passed": true
+}

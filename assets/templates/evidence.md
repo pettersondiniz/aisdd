@@ -23,10 +23,10 @@ quando o comando terminou com êxito, o teste anotado não está pulado e o mapa
 
 ## Rastreabilidade de agentes
 
-Preencha para T2+ quando houver delegação. Não invente modelo ou effort efetivo quando o runtime não os expuser.
+Preencha para T2+ quando houver delegação. Depois de o agente terminar, execute `python <skill-dir>/scripts/agent_evidence.py --agent-id <id> --json`. Use o último `turn_context` legível como a melhor evidência local observável e anote a fonte; ele não prova toda inferência de um agente multi-turn. Quando houver `total_token_usage` completo, registre obrigatoriamente a fonte, as categorias observadas e a estimativa equivalente à API apenas para tokens retornada pelo script. Ela exclui ferramentas, modalidades e cobrança da assinatura. O contexto longo é desconsiderado por padrão e deve ser marcado como potencialmente impreciso quando o script retornar esse aviso. Ele usa `~/.codex/aisdd/cost-pricing.toml`, ou o template da skill caso a tabela global não exista. Não invente modelo, effort, uso de tokens ou custo quando o runtime não os expuser.
 
-| Papel | Agente | Tarefa | Modelo solicitado | Effort solicitado | Modelo efetivo | Effort efetivo | Fallback | Resultado |
-|---|---|---|---|---|---|---|---|---|
+| Papel | Agente | Tarefa | Modelo solicitado | Effort solicitado | Modelo efetivo | Effort efetivo | Fonte efetiva | Tokens/categorias observados | Custo API estimado | Fallback | Resultado |
+|---|---|---|---|---|---|---|---|---|---|---|---|
 
 Resumo: agentes usados: 0; fallbacks: 0.
 

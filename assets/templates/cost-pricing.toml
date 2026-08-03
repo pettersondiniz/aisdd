@@ -1,0 +1,68 @@
+# Custo equivalente à API; não representa cobrança da assinatura ChatGPT.
+# Valores em USD por 1 milhão de tokens. Atualize somente a partir das páginas oficiais.
+
+schema_version = 1
+currency = "USD"
+pricing_basis = "api-equivalent-standard"
+source = "https://developers.openai.com/api/docs/models/compare"
+updated_at = "2026-08-02"
+
+[models."gpt-5.4-mini"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+input_per_million = 0.75
+cached_input_per_million = 0.075
+cache_write_input_per_million = 0.9375
+output_per_million = 4.50
+
+[models."gpt-5.4"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.4"
+input_per_million = 2.50
+cached_input_per_million = 0.25
+cache_write_input_per_million = 3.125
+output_per_million = 15.00
+long_context_threshold_tokens = 272000
+long_context_input_multiplier = 2.0
+long_context_output_multiplier = 1.5
+
+[models."gpt-5.5"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.5"
+input_per_million = 5.00
+cached_input_per_million = 0.50
+cache_write_input_per_million = 6.25
+output_per_million = 30.00
+long_context_threshold_tokens = 272000
+long_context_input_multiplier = 2.0
+long_context_output_multiplier = 1.5
+
+[models."gpt-5.6-luna"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+input_per_million = 0.20
+cached_input_per_million = 0.02
+cache_write_input_per_million = 0.25
+output_per_million = 1.20
+long_context_threshold_tokens = 272000
+long_context_input_multiplier = 2.0
+long_context_output_multiplier = 1.5
+
+[models."gpt-5.6-terra"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.6-terra"
+input_per_million = 2.00
+cached_input_per_million = 0.20
+cache_write_input_per_million = 2.50
+output_per_million = 12.00
+long_context_threshold_tokens = 272000
+long_context_input_multiplier = 2.0
+long_context_output_multiplier = 1.5
+
+[models."gpt-5.6-sol"]
+source = "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+input_per_million = 5.00
+cached_input_per_million = 0.50
+cache_write_input_per_million = 6.25
+output_per_million = 30.00
+long_context_threshold_tokens = 272000
+long_context_input_multiplier = 2.0
+long_context_output_multiplier = 1.5
+
+[aliases]
+"gpt-5.6" = "gpt-5.6-sol"
