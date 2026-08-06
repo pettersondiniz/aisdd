@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-import subprocess
-import sys
+
+from validate_feature import validate_feature
+from verify_feature import test_map
 
 
 def main() -> int:
@@ -17,7 +18,7 @@ def main() -> int:
     if not specs.exists():
         print("OK: nenhuma pasta specs encontrada")
         return 0
-    validator = Path(__file__).with_name("validate_feature.py")
+    full_map = test_map(repo)
     failures: list[str] = []
     pending_baseline_gaps: list[str] = []
     for feature in sorted(x for x in specs.iterdir() if x.is_dir()):
@@ -25,15 +26,9 @@ def main() -> int:
         if feature.name.startswith("baseline-") and status.exists() and "Origem: baseline-conformance" in status.read_text(encoding="utf-8", errors="ignore"):
             pending_baseline_gaps.append(feature.name)
             continue
-        result = subprocess.run(
-            [sys.executable, str(validator), str(repo), str(feature.relative_to(repo))],
-            cwd=repo,
-            text=True,
-            capture_output=True,
-            check=False,
-        )
-        if result.returncode:
-            details = (result.stdout + result.stderr).strip().replace("\n", " | ")
+        errors = validate_feature(repo, feature.relative_to(repo), full_map=full_map)
+        if errors:
+            details = "FALHA | " + " | ".join(f"- {error}" for error in errors)
             failures.append(f"{feature.name}: {details}")
     if failures:
         print("DRIFT ENCONTRADO")

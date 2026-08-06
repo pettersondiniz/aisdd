@@ -21,12 +21,13 @@ def digest(mapping: object) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def main() -> int:
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("repo", type=Path)
-    p.add_argument("feature", type=Path)
-    args = p.parse_args()
-    feature = (args.repo / args.feature).resolve()
+def validate_feature(
+    repo: Path,
+    feature: Path,
+    full_map: dict[str, list[dict[str, object]]] | None = None,
+) -> list[str]:
+    repo = Path(repo).resolve()
+    feature = (repo / Path(feature)).resolve()
     errors: list[str] = []
     if not feature.is_dir():
         errors.append(f"feature não encontrada: {feature}")
@@ -58,7 +59,8 @@ def main() -> int:
                 errors.append("verification.json não corresponde aos critérios atuais")
             if verification.get("mapping_sha256") != digest(recorded_map):
                 errors.append("verification.json está malformado")
-            current_map = {ac: test_map(args.repo.resolve()).get(ac, []) for ac in criteria}
+            mapping = test_map(repo) if full_map is None else full_map
+            current_map = {ac: mapping.get(ac, []) for ac in criteria}
             if recorded_map != current_map:
                 errors.append("verification.json está obsoleto: o mapa de testes mudou")
             if not verification.get("passed") or verification.get("exit_code") != 0:
@@ -70,6 +72,17 @@ def main() -> int:
                     errors.append(f"{ac} possui teste pulado/todo")
         except (json.JSONDecodeError, OSError):
             errors.append("verification.json inválido")
+    return errors
+
+
+def main() -> int:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("repo", type=Path)
+    p.add_argument("feature", type=Path)
+    args = p.parse_args()
+    repo = args.repo.resolve()
+    feature = (repo / args.feature).resolve()
+    errors = validate_feature(repo, feature)
     if errors:
         print("FALHA")
         print("\n".join(f"- {e}" for e in errors))

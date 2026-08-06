@@ -1,0 +1,68 @@
+{
+  "feature": "validation-performance-refactor",
+  "generated_at": "2026-08-05T23:11:36.120908+00:00",
+  "command": [
+    "python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-601",
+    "AC-602",
+    "AC-603",
+    "AC-604"
+  ],
+  "test_map": {
+    "AC-601": [
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 67,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 80,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 91,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      }
+    ],
+    "AC-602": [
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 108,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      }
+    ],
+    "AC-603": [
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 132,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      }
+    ],
+    "AC-604": [
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 152,
+        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "8c51cd2de3bfce486eefe7ee5e227b865161c3a5eb21aa0d178a9574974dd0ba",
+  "passed": true
+}
