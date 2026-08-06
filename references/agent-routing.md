@@ -10,6 +10,13 @@
 
 Agentes read-only podem trabalhar em paralelo. Apenas um agente deve editar o mesmo conjunto de arquivos por vez. O agente principal consolida resultados e resolve conflitos.
 
+## Correções após validação ou revisão
+
+- Um blocker, critério falho ou correção exigida pelo `tester` ou `reviewer` impede a conclusão e devolve o fluxo ao `implementer`.
+- `tester` e `reviewer` permanecem read-only e não corrigem os próprios achados. Reutilize um `implementer` disponível para a correção focada; se não houver um disponível, crie outro com escopo explícito de escrita.
+- O agente principal coordena e integra a correção, editando diretamente somente como fallback documentado quando não houver subagente disponível ou quando a mudança for genuinamente trivial.
+- Após cada correção, execute novamente `tester` e `reviewer` de forma independente. Se o achado mudar a spec, a arquitetura ou o plano, retorne primeiro ao agente/fase correspondente.
+
 ## Interface e Impeccable
 
 Durante Discovery, identifique se a alteração cria ou modifica uma interface visível (página,

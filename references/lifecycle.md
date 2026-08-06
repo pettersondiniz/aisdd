@@ -19,3 +19,10 @@
 - Um plano é vivo: registre decisões e replaneje milestones obsoletos.
 - Não marque concluído apenas porque o código compila.
 
+## Retorno após falha
+
+- Um blocker, critério falho ou correção exigida pelo `tester` ou `reviewer` impede a conclusão e devolve o fluxo à fase de Implementation.
+- Mantenha `tester` e `reviewer` read-only. Reutilize um `implementer` disponível para a correção focada; se não houver um disponível, crie outro com escopo explícito de escrita.
+- O agente principal coordena e integra a correção. Só edite diretamente como fallback documentado quando não houver subagente disponível ou quando a mudança for genuinamente trivial.
+- Depois de cada correção, execute novamente `tester` e `reviewer` de forma independente antes de retomar Completion.
+- Se o achado mudar a spec, a arquitetura ou o plano, retorne primeiro à fase correspondente e atualize os artefatos antes de implementar.
