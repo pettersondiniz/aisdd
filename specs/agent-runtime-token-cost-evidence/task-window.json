@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "task_id": "agent-runtime-token-cost-evidence",
+  "status": "closed",
+  "session": {
+    "session_id": "019fd446-85dc-7501-a03a-b9d674b7e9f8",
+    "rollout_file": "rollout-2026-08-05T20-33-39-019fd446-85dc-7501-a03a-b9d674b7e9f8.jsonl"
+  },
+  "start": {
+    "turn_id": "019fd4d3-6dbe-7b22-8895-b87ec3d68858",
+    "timestamp": "2026-08-06T02:07:33.854Z",
+    "line": 1901,
+    "event_index": 1900,
+    "kind": "task_started"
+  },
+  "end": {
+    "turn_id": "019fd4d3-6dbe-7b22-8895-b87ec3d68858",
+    "timestamp": "2026-08-06T04:37:56.304Z",
+    "line": 4287,
+    "event_index": 4286,
+    "kind": "task_complete"
+  },
+  "selection": {
+    "method": "latest-open-main-session",
+    "start_turn_id": "019fd4d3-6dbe-7b22-8895-b87ec3d68858"
+  },
+  "created_at": "2026-08-06T02:13:40.545588+00:00",
+  "updated_at": "2026-08-06T04:44:58.570446+00:00"
+}

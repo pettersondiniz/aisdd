@@ -125,6 +125,12 @@ class InterfaceValidationGuidanceTests(unittest.TestCase):
         self.assertIn("agent_evidence.py", template)
         self.assertIn("Tokens/categorias observados", template)
         self.assertIn("Custo API estimado", template)
+        self.assertIn("Custo total da tarefa", template)
+        self.assertIn("total_usd", template)
+        self.assertIn("task-window.json", template)
+        self.assertIn("task_window.py", template)
+        self.assertIn("janela aberta", template)
+        self.assertIn("rollouts de validação não pertencentes", template)
         self.assertIn("Não invente", template)
 
 
