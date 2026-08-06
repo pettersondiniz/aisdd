@@ -1,9 +1,15 @@
 {
   "feature": "baseline-conformance-ui-traceability",
-  "generated_at": "2026-08-03T01:42:53.127050+00:00",
+  "generated_at": "2026-08-06T04:36:13.077489+00:00",
   "command": [
     "python",
-    "tests\\test_interface_validation.py"
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-q"
   ],
   "exit_code": 0,
   "criteria": [
@@ -17,7 +23,7 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 71,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ],
@@ -25,7 +31,7 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 79,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ],
@@ -33,7 +39,7 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 86,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ],
@@ -41,11 +47,11 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 100,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ]
   },
-  "mapping_sha256": "4d489e780ef860dfc71878b45481022f63fbc6ca5ccb530af1624dcebec5dbaf",
+  "mapping_sha256": "78622363c4cf29f2d4b502f86b78cfd9ee87e4b8d0a57b565bef22b86dc16ea6",
   "passed": true
 }

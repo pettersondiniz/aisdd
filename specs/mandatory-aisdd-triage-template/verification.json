@@ -1,9 +1,15 @@
 {
   "feature": "mandatory-aisdd-triage-template",
-  "generated_at": "2026-08-03T01:42:56.346148+00:00",
+  "generated_at": "2026-08-06T04:36:13.080470+00:00",
   "command": [
     "python",
-    "tests\\test_interface_validation.py"
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-q"
   ],
   "exit_code": 0,
   "criteria": [
@@ -15,13 +21,13 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 14,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       },
       {
         "path": "tests/test_interface_validation.py",
         "line": 27,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ],
@@ -29,17 +35,17 @@
       {
         "path": "tests/test_interface_validation.py",
         "line": 21,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       },
       {
         "path": "tests/test_interface_validation.py",
         "line": 34,
-        "file_sha256": "ba40a1aa182fc36e5f5336a916a309e15be691583c06ba46097ef0a7990e4f87",
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
         "skipped": false
       }
     ]
   },
-  "mapping_sha256": "3623f7e6aab5312dfdaf3ed3cb86f54caab34b4138a0f53be6b6fb152966f42e",
+  "mapping_sha256": "c57562d5507a329dde6c15b90e791132d37d7cbb791deec2a19aa49ec629ca58",
   "passed": true
 }
