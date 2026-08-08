@@ -39,6 +39,66 @@ O inicializador cria `AGENTS.md`, `docs/` e `specs/` sem sobrescrever arquivos e
 6. Implemente em etapas, adicionando testes.
 7. Execute os testes pelo verificador de feature, revise, cheque drift e registre evidências.
 
+## Contrato de delegação
+
+A partir de T1, trabalho delegável tem owner e role especializada. Um T0 só
+fica fora do contrato quando for comprovadamente mecânico e não delegável; em
+evidência v2, a conclusão exige `mechanical_non_delegable.approved` com
+justificativa auditável ou uma role especializada. `orchestrator/coordinate`
+nunca cobre trabalho delegável. Se for delegável, o Orchestrator não o executa. O Orchestrator coordena,
+acompanha dependências e consolida evidências; não implementa código, altera
+testes, executa build, corrige achados nem faz a validação final. Em T1+ v1, o
+Planner produz o plano técnico, o plano de execução e o grafo declarativo nos
+artefatos v1; T1/T2 incluem Planner, Implementer, Test Engineer e Verifier, T2 também inclui Reviewer, e T3/T4
+incluem ainda Architect e Documentation Reviewer. Em T2, Documentation Reviewer
+é obrigatório somente quando houver impacto documental; sem esse impacto, a role
+não é um requisito adicional. Em T3/T4, Documentation Reviewer é obrigatório
+por classe. `test-engineer` cria ou altera testes, `verifier` executa a validação
+final e `reviewer` revisa de forma independente. `tester` permanece alias v1 de
+`test-engineer`.
+
+Um blocker, critério falho ou correção exigida pelo Test Engineer, Verifier,
+Reviewer ou Documentation Reviewer impede a conclusão e abre um novo WP de
+correção para a role adequada. O fluxo retorna ao Implementer e repete Test
+Engineer, Verifier e os revisores aplicáveis antes de retomar Completion.
+
+Em T1+ v1, `plan.md` é a fonte normativa do grafo declarativo de tarefas/WPs,
+owners, dependências e paralelização. `evidence.md` apenas resume owners e
+dependências e registra provas; não redefine o grafo.
+
+Se uma role ou agente não estiver disponível, o trabalho fica `BLOCKED` até
+decisão humana. Edição direta só é permitida como fallback explicitamente
+aprovado e auditado com motivo, tentativas, escopo e resultado; trivialidade ou
+silêncio não autorizam bypass.
+
+Novas specs usam contrato v2 por padrão: `scripts/create_feature.py` grava o
+marcador canônico e cria os esqueletos `work-packages.json` e
+`delegation-evidence.json`. Specs existentes/legadas sem marcador, ou criadas
+explicitamente com `--contract v1`, permanecem em v1 como modo de
+compatibilidade; usam os artefatos históricos e não exigem os JSON v2. Não há
+migração automática.
+
+O validador aplica v2 somente quando o marcador literal
+`Contrato AISDD da feature: v2` (ou um alias documentado) ocupa uma única linha em `spec.md`,
+`plan.md` ou `status.md`; ausência ou marcador v1 permanece compatibilidade v1.
+Valide os artefatos v2 com:
+
+O marcador canônico é `Contrato AISDD da feature: v2`. Para interoperabilidade,
+o detector também aceita, em uma linha própria e sem distinção de maiúsculas,
+os aliases `Contrato AISDD: v2`, `AISDD contract: v2`, `AISDD-contract: v2`,
+`AISDD_contract: v2`, `delegation contract: v2`, `delegation-contract: v2`,
+`delegation_contract: v2`, `contract: v2`, `contract-version: v2` e
+`contract_version: v2`. Os aliases aceitam `:` ou `=` e `2` ou `v2`; prefira o
+marcador canônico para evitar ambiguidade.
+
+```text
+python scripts/delegation_contract.py specs/<feature> --json
+```
+
+Em uma feature v2, o validador exige a evidência v2; `--graph-only` é um modo
+explícito somente para validar o grafo. Ele não inventa nem executa um runtime
+externo de agentes.
+
 ## Rastreabilidade mecânica
 
 Para features T2+, cada critério de aceitação usa um ID global (`AC-001`), aparece em uma
@@ -72,3 +132,19 @@ python scripts/check_drift.py .
 ```
 
 O pacote não inclui dependências externas.
+## Telemetria de delegações
+
+Em uma feature v2, registre a declaração de cada Work Package e depois colete
+a evidência observável do rollout:
+
+```text
+python scripts/delegation_telemetry.py init --output specs/<feature>/delegation-evidence.json --work-packages specs/<feature>/work-packages.json
+python scripts/delegation_telemetry.py record --output specs/<feature>/delegation-evidence.json --work-package WP-001 --role implementer --agent-id <id> --requested-model <model> --requested-effort <effort>
+python scripts/delegation_telemetry.py collect --output specs/<feature>/delegation-evidence.json --sessions-root <sessions-root> --pricing-config <pricing-config.toml> --json
+```
+
+O collector só usa rollouts explicitamente associados, preserva o modelo e o
+effort efetivos, e separa `delegated_subtotal` de `unavailable`. A guarda de
+roteamento pode ser usada antes do spawn com `model_routing.py --require-available`;
+um mismatch exige override e motivo explícito. O chat principal continua sendo
+medido por `task_window.py` quando a feature declarar essa atribuição.

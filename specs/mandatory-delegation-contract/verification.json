@@ -1,0 +1,306 @@
+{
+  "feature": "mandatory-delegation-contract",
+  "generated_at": "2026-08-08T04:27:49.674791+00:00",
+  "command": [
+    "python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-q"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-701",
+    "AC-702",
+    "AC-703",
+    "AC-704",
+    "AC-705",
+    "AC-706",
+    "AC-707",
+    "AC-708",
+    "AC-709",
+    "AC-710",
+    "AC-711"
+  ],
+  "test_map": {
+    "AC-701": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 132,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-702": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 153,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-703": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 179,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-704": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 195,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 256,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 284,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 389,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 418,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 445,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 464,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 488,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 510,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-705": [
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 281,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 344,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_check_drift.py",
+        "line": 359,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 548,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 557,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 612,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1227,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-706": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 735,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 760,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 796,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 893,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 915,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 931,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 955,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 994,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1104,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1128,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1144,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1156,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-707": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 669,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 688,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 708,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1259,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 137,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      }
+    ],
+    "AC-708": [
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 155,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 179,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 207,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      }
+    ],
+    "AC-709": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1173,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ],
+    "AC-710": [
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 221,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      }
+    ],
+    "AC-711": [
+      {
+        "path": "tests/test_delegation_contract.py",
+        "line": 1187,
+        "file_sha256": "a3be71cdf2f1d4e5a4b6fc6f599718ee0198e62269f4581561d6d9a30af33d3d",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "5ee87ad5d721c92e646eaa5e14822b1c57b061c33f81be44e91590c6b17cc37c",
+  "passed": true
+}
