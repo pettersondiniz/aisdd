@@ -1,0 +1,75 @@
+{
+  "feature": "delegated-rollout-observability",
+  "generated_at": "2026-08-08T04:30:47.102851+00:00",
+  "command": [
+    "python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-q"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-801",
+    "AC-802",
+    "AC-803",
+    "AC-804"
+  ],
+  "test_map": {
+    "AC-801": [
+      {
+        "path": "tests/test_delegation_telemetry.py",
+        "line": 74,
+        "file_sha256": "f6100da66d0e431e68959c17812dc37e93236776f7de7eb7b3bc2feb5c580628",
+        "skipped": false
+      }
+    ],
+    "AC-802": [
+      {
+        "path": "tests/test_delegation_telemetry.py",
+        "line": 118,
+        "file_sha256": "f6100da66d0e431e68959c17812dc37e93236776f7de7eb7b3bc2feb5c580628",
+        "skipped": false
+      }
+    ],
+    "AC-803": [
+      {
+        "path": "tests/test_delegation_telemetry.py",
+        "line": 170,
+        "file_sha256": "f6100da66d0e431e68959c17812dc37e93236776f7de7eb7b3bc2feb5c580628",
+        "skipped": false
+      }
+    ],
+    "AC-804": [
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 37,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 63,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 90,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_delegation_routing.py",
+        "line": 109,
+        "file_sha256": "19d5775748f7496c39a3aaf42d7ad58ea1fad7be9a2d18947b4ee8d5bd7c4597",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "662bcef7b530688284e622294807bef965df267ac9a04b1ac45a5c52ec6613c8",
+  "passed": true
+}

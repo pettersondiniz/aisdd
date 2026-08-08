@@ -1,0 +1,112 @@
+{
+  "contract": "v2",
+  "contract_version": "v2",
+  "change_class": "T3",
+  "work_packages": [
+    {
+      "id": "WP-001",
+      "owner": "planner-rollout",
+      "role": "planner",
+      "depends_on": [],
+      "capabilities": ["inspect", "plan", "plan-execution"],
+      "scope": {
+        "write": [],
+        "read": ["SKILL.md", "scripts/**", "references/**", "specs/delegated-rollout-observability/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-002",
+      "owner": "architect-rollout",
+      "role": "architect",
+      "depends_on": ["WP-001"],
+      "capabilities": ["inspect", "design", "adr"],
+      "scope": {
+        "write": [],
+        "read": ["SKILL.md", "scripts/**", "references/**", "docs/architecture/**", "specs/delegated-rollout-observability/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-003",
+      "owner": "main-chat-fallback-implementer",
+      "role": "implementer",
+      "depends_on": ["WP-002"],
+      "capabilities": ["inspect", "implement"],
+      "scope": {
+        "write": ["scripts/delegation_telemetry.py", "scripts/model_routing.py", "SKILL.md", "README.md", "references/model-routing.md", "references/completion-standard.md", "assets/templates/evidence.md", "docs/architecture/decisions/ADR-0002-telemetry-manifest-and-routing-validation.md", "tests/test_delegation_telemetry.py", "tests/test_delegation_routing.py", "specs/delegated-rollout-observability/**"],
+        "read": ["scripts/**", "tests/**", "references/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-004",
+      "owner": "main-chat-fallback-test-engineer",
+      "role": "test-engineer",
+      "depends_on": ["WP-003"],
+      "capabilities": ["inspect", "design-tests", "write-tests"],
+      "scope": {
+        "write": ["tests/test_delegation_telemetry.py", "tests/test_delegation_routing.py"],
+        "read": ["scripts/delegation_telemetry.py", "scripts/model_routing.py", "specs/delegated-rollout-observability/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-005",
+      "owner": "main-chat-fallback-verifier",
+      "role": "verifier",
+      "depends_on": ["WP-004"],
+      "capabilities": ["inspect", "build", "run-tests", "verify-final"],
+      "scope": {
+        "write": [],
+        "read": ["scripts/**", "tests/**", "specs/delegated-rollout-observability/**"],
+        "execute": ["scripts/**", "tests/**"],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-006",
+      "owner": "main-chat-fallback-reviewer",
+      "role": "reviewer",
+      "depends_on": ["WP-005"],
+      "capabilities": ["inspect", "review"],
+      "scope": {
+        "write": [],
+        "read": ["scripts/**", "tests/**", "SKILL.md", "README.md", "references/**", "specs/delegated-rollout-observability/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    },
+    {
+      "id": "WP-007",
+      "owner": "main-chat-fallback-documentation-reviewer",
+      "role": "documentation-reviewer",
+      "depends_on": ["WP-005"],
+      "capabilities": ["inspect", "review-docs"],
+      "scope": {
+        "write": [],
+        "read": ["SKILL.md", "README.md", "references/**", "assets/templates/**", "docs/architecture/**", "specs/delegated-rollout-observability/**"],
+        "execute": [],
+        "forbidden": ["agent-bridge-mcp/**"]
+      },
+      "acceptance_criteria": ["AC-801", "AC-802", "AC-803", "AC-804"],
+      "state": "completed"
+    }
+  ]
+}

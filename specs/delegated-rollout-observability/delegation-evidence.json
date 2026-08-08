@@ -1,0 +1,1960 @@
+{
+  "contract": "v2",
+  "contract_version": "v2",
+  "status": "completed",
+  "change_class": "T3",
+  "work_packages_sha256": "3ee0e52d3e03d194c15d733993e1ce4ab848a6dc7a6ae29363069d764abcfa7c",
+  "required_roles": [
+    "planner",
+    "architect",
+    "implementer",
+    "test-engineer",
+    "verifier",
+    "reviewer",
+    "documentation-reviewer"
+  ],
+  "blocker_open": false,
+  "blockers": [],
+  "delegations": [
+    {
+      "work_package": "WP-001",
+      "role": "planner",
+      "agent_id": "019fdf82-5ca3-7830-b7a8-c2fad34eb710",
+      "state": "completed",
+      "fallback": {
+        "used": false
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "019fdf82-5ca3-7830-b7a8-c2fad34eb710"
+        },
+        "status": "resolved"
+      },
+      "agent_evidence": {
+        "status": "resolved",
+        "source": "local-rollout-turn_context:last-readable",
+        "effective": {
+          "model": "gpt-5.6-luna",
+          "reasoning_effort": "max",
+          "turn_id": "019fdf8b-6198-75d0-a889-683d735dd4a7",
+          "timestamp": "2026-08-08T04:04:41.569Z"
+        },
+        "effective_scope": "last-readable-turn-context",
+        "turn_context_count": 3,
+        "candidate": {
+          "rollout": "rollout-2026-08-08T00-54-50-019fdf82-5ca3-7830-b7a8-c2fad34eb710.jsonl",
+          "agent_id": null,
+          "role": "planner",
+          "nickname": "Scout",
+          "parent_session_id": "019fdf62-1788-77d1-b001-1bb3a3985179"
+        },
+        "resolution": {
+          "method": "rollout-id-fallback",
+          "fallback_used": true,
+          "requested_agent_id": "019fdf82-5ca3-7830-b7a8-c2fad34eb710",
+          "matched_rollout_id": "019fdf82-5ca3-7830-b7a8-c2fad34eb710"
+        },
+        "request_token_usage": {
+          "status": "observed",
+          "source": "local-rollout-event_msg.info.last_token_usage:deduplicated",
+          "scope": "deduplicated-request-usage-events",
+          "request_count": 20,
+          "readable_snapshot_count": 21,
+          "snapshots": [
+            {
+              "timestamp": "2026-08-08T03:55:01.711Z",
+              "input_tokens": 14442,
+              "cached_input_tokens": 9984,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 334,
+              "reasoning_output_tokens": 189,
+              "total_tokens": 14776,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:10.696Z",
+              "input_tokens": 18836,
+              "cached_input_tokens": 14080,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 423,
+              "reasoning_output_tokens": 256,
+              "total_tokens": 19259,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:27.942Z",
+              "input_tokens": 20841,
+              "cached_input_tokens": 18176,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 887,
+              "reasoning_output_tokens": 516,
+              "total_tokens": 21728,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:36.554Z",
+              "input_tokens": 24669,
+              "cached_input_tokens": 20224,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 370,
+              "reasoning_output_tokens": 157,
+              "total_tokens": 25039,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:52.555Z",
+              "input_tokens": 36545,
+              "cached_input_tokens": 24320,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 763,
+              "reasoning_output_tokens": 400,
+              "total_tokens": 37308,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:58.827Z",
+              "input_tokens": 47508,
+              "cached_input_tokens": 35584,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 260,
+              "reasoning_output_tokens": 61,
+              "total_tokens": 47768,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:10.263Z",
+              "input_tokens": 57667,
+              "cached_input_tokens": 46848,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 563,
+              "reasoning_output_tokens": 133,
+              "total_tokens": 58230,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:20.368Z",
+              "input_tokens": 59896,
+              "cached_input_tokens": 57088,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 495,
+              "reasoning_output_tokens": 81,
+              "total_tokens": 60391,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:43.627Z",
+              "input_tokens": 70221,
+              "cached_input_tokens": 59136,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1062,
+              "reasoning_output_tokens": 773,
+              "total_tokens": 71283,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:07.554Z",
+              "input_tokens": 81401,
+              "cached_input_tokens": 69376,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1199,
+              "reasoning_output_tokens": 635,
+              "total_tokens": 82600,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:13.317Z",
+              "input_tokens": 92342,
+              "cached_input_tokens": 80640,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 250,
+              "reasoning_output_tokens": 55,
+              "total_tokens": 92592,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:20.240Z",
+              "input_tokens": 97109,
+              "cached_input_tokens": 91904,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 290,
+              "reasoning_output_tokens": 31,
+              "total_tokens": 97399,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:28.887Z",
+              "input_tokens": 107919,
+              "cached_input_tokens": 96000,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 416,
+              "reasoning_output_tokens": 84,
+              "total_tokens": 108335,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:33.668Z",
+              "input_tokens": 119653,
+              "cached_input_tokens": 107264,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 188,
+              "reasoning_output_tokens": 28,
+              "total_tokens": 119841,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:39.626Z",
+              "input_tokens": 128958,
+              "cached_input_tokens": 118528,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 245,
+              "reasoning_output_tokens": 29,
+              "total_tokens": 129203,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:50.501Z",
+              "input_tokens": 136298,
+              "cached_input_tokens": 128768,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 533,
+              "reasoning_output_tokens": 167,
+              "total_tokens": 136831,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:58:07.178Z",
+              "input_tokens": 146809,
+              "cached_input_tokens": 135936,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 732,
+              "reasoning_output_tokens": 442,
+              "total_tokens": 147541,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:59:12.150Z",
+              "input_tokens": 156759,
+              "cached_input_tokens": 146176,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 3522,
+              "reasoning_output_tokens": 3282,
+              "total_tokens": 160281,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:00:09.122Z",
+              "input_tokens": 156759,
+              "cached_input_tokens": 146176,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 3522,
+              "reasoning_output_tokens": 3282,
+              "total_tokens": 160281,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:04:36.796Z",
+              "input_tokens": 166632,
+              "cached_input_tokens": 162560,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 14322,
+              "reasoning_output_tokens": 11584,
+              "total_tokens": 180954,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:05:14.023Z",
+              "input_tokens": 180978,
+              "cached_input_tokens": 165632,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1499,
+              "reasoning_output_tokens": 583,
+              "total_tokens": 182477,
+              "unavailable_categories": []
+            }
+          ],
+          "duplicate_snapshots_ignored": 1,
+          "sum": {
+            "input_tokens": 1765483,
+            "cached_input_tokens": 1588224,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 28353,
+            "reasoning_output_tokens": 19486,
+            "total_tokens": 1793836
+          }
+        },
+        "token_usage": {
+          "status": "observed",
+          "source": "local-rollout-event_msg.info.total_token_usage:last-readable",
+          "scope": "last-readable-rollout-total",
+          "timestamp": "2026-08-08T04:05:14.023Z",
+          "input_tokens": 1765483,
+          "cached_input_tokens": 1588224,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 28353,
+          "reasoning_output_tokens": 19486,
+          "total_tokens": 1793836,
+          "unavailable_categories": []
+        },
+        "cost_estimate": {
+          "status": "estimated",
+          "basis": "api-equivalent-standard-token-only",
+          "currency": "USD",
+          "pricing_updated_at": "2026-08-02",
+          "pricing_model": "gpt-5.6-luna",
+          "long_context_pricing": "tiered",
+          "scope": "last-token-usage-per-request",
+          "components": {
+            "input": {
+              "tokens": 177259,
+              "usd": 0.0354518
+            },
+            "cached_input": {
+              "tokens": 1588224,
+              "usd": 0.03176448
+            },
+            "cache_write_input": {
+              "tokens": 0,
+              "usd": 0.0
+            },
+            "output": {
+              "tokens": 28353,
+              "usd": 0.0340236
+            }
+          },
+          "total_usd": 0.10123988,
+          "exclusions": [
+            "tool fees",
+            "modality fees",
+            "subscription billing"
+          ],
+          "request_count": 20,
+          "standard_request_count": 20,
+          "long_context_request_count": 0,
+          "request_segments": {
+            "standard": {
+              "requests": 20,
+              "components": {
+                "input": {
+                  "tokens": 177259,
+                  "usd": 0.0354518
+                },
+                "cached_input": {
+                  "tokens": 1588224,
+                  "usd": 0.03176448
+                },
+                "cache_write_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "output": {
+                  "tokens": 28353,
+                  "usd": 0.0340236
+                }
+              }
+            },
+            "long_context": {
+              "requests": 0,
+              "components": {
+                "input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "cached_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "cache_write_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "output": {
+                  "tokens": 0,
+                  "usd": 0.0
+                }
+              }
+            }
+          },
+          "long_context_threshold_tokens": 272000
+        }
+      },
+      "effective": {
+        "model": "gpt-5.6-luna",
+        "reasoning_effort": "max",
+        "turn_id": "019fdf8b-6198-75d0-a889-683d735dd4a7",
+        "timestamp": "2026-08-08T04:04:41.569Z"
+      },
+      "token_usage": {
+        "status": "observed",
+        "source": "local-rollout-event_msg.info.total_token_usage:last-readable",
+        "scope": "last-readable-rollout-total",
+        "timestamp": "2026-08-08T04:05:14.023Z",
+        "input_tokens": 1765483,
+        "cached_input_tokens": 1588224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 28353,
+        "reasoning_output_tokens": 19486,
+        "total_tokens": 1793836,
+        "unavailable_categories": []
+      },
+      "request_token_usage": {
+        "status": "observed",
+        "source": "local-rollout-event_msg.info.last_token_usage:deduplicated",
+        "scope": "deduplicated-request-usage-events",
+        "request_count": 20,
+        "readable_snapshot_count": 21,
+        "snapshots": [
+          {
+            "timestamp": "2026-08-08T03:55:01.711Z",
+            "input_tokens": 14442,
+            "cached_input_tokens": 9984,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 334,
+            "reasoning_output_tokens": 189,
+            "total_tokens": 14776,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:10.696Z",
+            "input_tokens": 18836,
+            "cached_input_tokens": 14080,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 423,
+            "reasoning_output_tokens": 256,
+            "total_tokens": 19259,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:27.942Z",
+            "input_tokens": 20841,
+            "cached_input_tokens": 18176,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 887,
+            "reasoning_output_tokens": 516,
+            "total_tokens": 21728,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:36.554Z",
+            "input_tokens": 24669,
+            "cached_input_tokens": 20224,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 370,
+            "reasoning_output_tokens": 157,
+            "total_tokens": 25039,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:52.555Z",
+            "input_tokens": 36545,
+            "cached_input_tokens": 24320,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 763,
+            "reasoning_output_tokens": 400,
+            "total_tokens": 37308,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:58.827Z",
+            "input_tokens": 47508,
+            "cached_input_tokens": 35584,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 260,
+            "reasoning_output_tokens": 61,
+            "total_tokens": 47768,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:10.263Z",
+            "input_tokens": 57667,
+            "cached_input_tokens": 46848,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 563,
+            "reasoning_output_tokens": 133,
+            "total_tokens": 58230,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:20.368Z",
+            "input_tokens": 59896,
+            "cached_input_tokens": 57088,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 495,
+            "reasoning_output_tokens": 81,
+            "total_tokens": 60391,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:43.627Z",
+            "input_tokens": 70221,
+            "cached_input_tokens": 59136,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1062,
+            "reasoning_output_tokens": 773,
+            "total_tokens": 71283,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:07.554Z",
+            "input_tokens": 81401,
+            "cached_input_tokens": 69376,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1199,
+            "reasoning_output_tokens": 635,
+            "total_tokens": 82600,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:13.317Z",
+            "input_tokens": 92342,
+            "cached_input_tokens": 80640,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 250,
+            "reasoning_output_tokens": 55,
+            "total_tokens": 92592,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:20.240Z",
+            "input_tokens": 97109,
+            "cached_input_tokens": 91904,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 290,
+            "reasoning_output_tokens": 31,
+            "total_tokens": 97399,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:28.887Z",
+            "input_tokens": 107919,
+            "cached_input_tokens": 96000,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 416,
+            "reasoning_output_tokens": 84,
+            "total_tokens": 108335,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:33.668Z",
+            "input_tokens": 119653,
+            "cached_input_tokens": 107264,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 188,
+            "reasoning_output_tokens": 28,
+            "total_tokens": 119841,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:39.626Z",
+            "input_tokens": 128958,
+            "cached_input_tokens": 118528,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 245,
+            "reasoning_output_tokens": 29,
+            "total_tokens": 129203,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:50.501Z",
+            "input_tokens": 136298,
+            "cached_input_tokens": 128768,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 533,
+            "reasoning_output_tokens": 167,
+            "total_tokens": 136831,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:58:07.178Z",
+            "input_tokens": 146809,
+            "cached_input_tokens": 135936,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 732,
+            "reasoning_output_tokens": 442,
+            "total_tokens": 147541,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:59:12.150Z",
+            "input_tokens": 156759,
+            "cached_input_tokens": 146176,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3522,
+            "reasoning_output_tokens": 3282,
+            "total_tokens": 160281,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:00:09.122Z",
+            "input_tokens": 156759,
+            "cached_input_tokens": 146176,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 3522,
+            "reasoning_output_tokens": 3282,
+            "total_tokens": 160281,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:04:36.796Z",
+            "input_tokens": 166632,
+            "cached_input_tokens": 162560,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 14322,
+            "reasoning_output_tokens": 11584,
+            "total_tokens": 180954,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:05:14.023Z",
+            "input_tokens": 180978,
+            "cached_input_tokens": 165632,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1499,
+            "reasoning_output_tokens": 583,
+            "total_tokens": 182477,
+            "unavailable_categories": []
+          }
+        ],
+        "duplicate_snapshots_ignored": 1,
+        "sum": {
+          "input_tokens": 1765483,
+          "cached_input_tokens": 1588224,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 28353,
+          "reasoning_output_tokens": 19486,
+          "total_tokens": 1793836
+        }
+      },
+      "cost_estimate": {
+        "status": "estimated",
+        "basis": "api-equivalent-standard-token-only",
+        "currency": "USD",
+        "pricing_updated_at": "2026-08-02",
+        "pricing_model": "gpt-5.6-luna",
+        "long_context_pricing": "tiered",
+        "scope": "last-token-usage-per-request",
+        "components": {
+          "input": {
+            "tokens": 177259,
+            "usd": 0.0354518
+          },
+          "cached_input": {
+            "tokens": 1588224,
+            "usd": 0.03176448
+          },
+          "cache_write_input": {
+            "tokens": 0,
+            "usd": 0.0
+          },
+          "output": {
+            "tokens": 28353,
+            "usd": 0.0340236
+          }
+        },
+        "total_usd": 0.10123988,
+        "exclusions": [
+          "tool fees",
+          "modality fees",
+          "subscription billing"
+        ],
+        "request_count": 20,
+        "standard_request_count": 20,
+        "long_context_request_count": 0,
+        "request_segments": {
+          "standard": {
+            "requests": 20,
+            "components": {
+              "input": {
+                "tokens": 177259,
+                "usd": 0.0354518
+              },
+              "cached_input": {
+                "tokens": 1588224,
+                "usd": 0.03176448
+              },
+              "cache_write_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "output": {
+                "tokens": 28353,
+                "usd": 0.0340236
+              }
+            }
+          },
+          "long_context": {
+            "requests": 0,
+            "components": {
+              "input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "cached_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "cache_write_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "output": {
+                "tokens": 0,
+                "usd": 0.0
+              }
+            }
+          }
+        },
+        "long_context_threshold_tokens": 272000
+      },
+      "resolution": {
+        "method": "rollout-id-fallback",
+        "fallback_used": true,
+        "requested_agent_id": "019fdf82-5ca3-7830-b7a8-c2fad34eb710",
+        "matched_rollout_id": "019fdf82-5ca3-7830-b7a8-c2fad34eb710"
+      }
+    },
+    {
+      "work_package": "WP-002",
+      "role": "architect",
+      "agent_id": "019fdf82-5d5e-7ad3-952a-0acb69490932",
+      "state": "completed",
+      "fallback": {
+        "used": false
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "019fdf82-5d5e-7ad3-952a-0acb69490932"
+        },
+        "status": "resolved"
+      },
+      "agent_evidence": {
+        "status": "resolved",
+        "source": "local-rollout-turn_context:last-readable",
+        "effective": {
+          "model": "gpt-5.6-luna",
+          "reasoning_effort": "max",
+          "turn_id": "019fdf87-39a4-7cd2-b301-eecb469dd483",
+          "timestamp": "2026-08-08T04:00:09.313Z"
+        },
+        "effective_scope": "last-readable-turn-context",
+        "turn_context_count": 2,
+        "candidate": {
+          "rollout": "rollout-2026-08-08T00-54-50-019fdf82-5d5e-7ad3-952a-0acb69490932.jsonl",
+          "agent_id": null,
+          "role": "architect",
+          "nickname": "Keystone",
+          "parent_session_id": "019fdf62-1788-77d1-b001-1bb3a3985179"
+        },
+        "resolution": {
+          "method": "rollout-id-fallback",
+          "fallback_used": true,
+          "requested_agent_id": "019fdf82-5d5e-7ad3-952a-0acb69490932",
+          "matched_rollout_id": "019fdf82-5d5e-7ad3-952a-0acb69490932"
+        },
+        "request_token_usage": {
+          "status": "observed",
+          "source": "local-rollout-event_msg.info.last_token_usage:deduplicated",
+          "scope": "deduplicated-request-usage-events",
+          "request_count": 27,
+          "readable_snapshot_count": 28,
+          "snapshots": [
+            {
+              "timestamp": "2026-08-08T03:55:04.853Z",
+              "input_tokens": 14099,
+              "cached_input_tokens": 9984,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 600,
+              "reasoning_output_tokens": 441,
+              "total_tokens": 14699,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:10.210Z",
+              "input_tokens": 18759,
+              "cached_input_tokens": 13056,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 251,
+              "reasoning_output_tokens": 206,
+              "total_tokens": 19010,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:24.436Z",
+              "input_tokens": 23767,
+              "cached_input_tokens": 18176,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 725,
+              "reasoning_output_tokens": 474,
+              "total_tokens": 24492,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:35.988Z",
+              "input_tokens": 26119,
+              "cached_input_tokens": 23296,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 593,
+              "reasoning_output_tokens": 450,
+              "total_tokens": 26712,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:45.183Z",
+              "input_tokens": 26736,
+              "cached_input_tokens": 25344,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 443,
+              "reasoning_output_tokens": 222,
+              "total_tokens": 27179,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:55:57.149Z",
+              "input_tokens": 34327,
+              "cached_input_tokens": 26368,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 617,
+              "reasoning_output_tokens": 383,
+              "total_tokens": 34944,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:04.494Z",
+              "input_tokens": 34977,
+              "cached_input_tokens": 33536,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 331,
+              "reasoning_output_tokens": 61,
+              "total_tokens": 35308,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:13.077Z",
+              "input_tokens": 39518,
+              "cached_input_tokens": 34560,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 319,
+              "reasoning_output_tokens": 63,
+              "total_tokens": 39837,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:19.657Z",
+              "input_tokens": 51280,
+              "cached_input_tokens": 38656,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 285,
+              "reasoning_output_tokens": 60,
+              "total_tokens": 51565,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:26.029Z",
+              "input_tokens": 60592,
+              "cached_input_tokens": 50944,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 271,
+              "reasoning_output_tokens": 40,
+              "total_tokens": 60863,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:32.599Z",
+              "input_tokens": 70824,
+              "cached_input_tokens": 60160,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 279,
+              "reasoning_output_tokens": 59,
+              "total_tokens": 71103,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:37.692Z",
+              "input_tokens": 81717,
+              "cached_input_tokens": 70400,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 208,
+              "reasoning_output_tokens": 21,
+              "total_tokens": 81925,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:42.622Z",
+              "input_tokens": 88270,
+              "cached_input_tokens": 80640,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 201,
+              "reasoning_output_tokens": 14,
+              "total_tokens": 88471,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:49.012Z",
+              "input_tokens": 92689,
+              "cached_input_tokens": 87808,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 255,
+              "reasoning_output_tokens": 82,
+              "total_tokens": 92944,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:56:57.520Z",
+              "input_tokens": 95534,
+              "cached_input_tokens": 91904,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 390,
+              "reasoning_output_tokens": 94,
+              "total_tokens": 95924,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:05.315Z",
+              "input_tokens": 106035,
+              "cached_input_tokens": 94976,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 334,
+              "reasoning_output_tokens": 84,
+              "total_tokens": 106369,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:11.808Z",
+              "input_tokens": 118087,
+              "cached_input_tokens": 105216,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 264,
+              "reasoning_output_tokens": 48,
+              "total_tokens": 118351,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:17.582Z",
+              "input_tokens": 129223,
+              "cached_input_tokens": 117504,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 235,
+              "reasoning_output_tokens": 75,
+              "total_tokens": 129458,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:25.226Z",
+              "input_tokens": 140346,
+              "cached_input_tokens": 128768,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 342,
+              "reasoning_output_tokens": 110,
+              "total_tokens": 140688,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:32.271Z",
+              "input_tokens": 149845,
+              "cached_input_tokens": 140032,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 299,
+              "reasoning_output_tokens": 22,
+              "total_tokens": 150144,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:37.176Z",
+              "input_tokens": 160903,
+              "cached_input_tokens": 149248,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 141,
+              "reasoning_output_tokens": 41,
+              "total_tokens": 161044,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:42.574Z",
+              "input_tokens": 163203,
+              "cached_input_tokens": 160512,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 223,
+              "reasoning_output_tokens": 15,
+              "total_tokens": 163426,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:57:48.610Z",
+              "input_tokens": 168557,
+              "cached_input_tokens": 162560,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 240,
+              "reasoning_output_tokens": 59,
+              "total_tokens": 168797,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:58:21.553Z",
+              "input_tokens": 176776,
+              "cached_input_tokens": 167680,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 1746,
+              "reasoning_output_tokens": 1526,
+              "total_tokens": 178522,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T03:58:30.843Z",
+              "input_tokens": 188663,
+              "cached_input_tokens": 175872,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 347,
+              "reasoning_output_tokens": 212,
+              "total_tokens": 189010,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:00:09.124Z",
+              "input_tokens": 188663,
+              "cached_input_tokens": 175872,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 347,
+              "reasoning_output_tokens": 212,
+              "total_tokens": 189010,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:01:43.338Z",
+              "input_tokens": 203429,
+              "cached_input_tokens": 197376,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 4116,
+              "reasoning_output_tokens": 3901,
+              "total_tokens": 207545,
+              "unavailable_categories": []
+            },
+            {
+              "timestamp": "2026-08-08T04:03:13.315Z",
+              "input_tokens": 207569,
+              "cached_input_tokens": 202496,
+              "cache_write_input_tokens": 0,
+              "output_tokens": 4844,
+              "reasoning_output_tokens": 2588,
+              "total_tokens": 212413,
+              "unavailable_categories": []
+            }
+          ],
+          "duplicate_snapshots_ignored": 1,
+          "sum": {
+            "input_tokens": 2671844,
+            "cached_input_tokens": 2467072,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 18899,
+            "reasoning_output_tokens": 11351,
+            "total_tokens": 2690743
+          }
+        },
+        "token_usage": {
+          "status": "observed",
+          "source": "local-rollout-event_msg.info.total_token_usage:last-readable",
+          "scope": "last-readable-rollout-total",
+          "timestamp": "2026-08-08T04:03:13.315Z",
+          "input_tokens": 2671844,
+          "cached_input_tokens": 2467072,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 18899,
+          "reasoning_output_tokens": 11351,
+          "total_tokens": 2690743,
+          "unavailable_categories": []
+        },
+        "cost_estimate": {
+          "status": "estimated",
+          "basis": "api-equivalent-standard-token-only",
+          "currency": "USD",
+          "pricing_updated_at": "2026-08-02",
+          "pricing_model": "gpt-5.6-luna",
+          "long_context_pricing": "tiered",
+          "scope": "last-token-usage-per-request",
+          "components": {
+            "input": {
+              "tokens": 204772,
+              "usd": 0.0409544
+            },
+            "cached_input": {
+              "tokens": 2467072,
+              "usd": 0.04934144
+            },
+            "cache_write_input": {
+              "tokens": 0,
+              "usd": 0.0
+            },
+            "output": {
+              "tokens": 18899,
+              "usd": 0.0226788
+            }
+          },
+          "total_usd": 0.11297464,
+          "exclusions": [
+            "tool fees",
+            "modality fees",
+            "subscription billing"
+          ],
+          "request_count": 27,
+          "standard_request_count": 27,
+          "long_context_request_count": 0,
+          "request_segments": {
+            "standard": {
+              "requests": 27,
+              "components": {
+                "input": {
+                  "tokens": 204772,
+                  "usd": 0.0409544
+                },
+                "cached_input": {
+                  "tokens": 2467072,
+                  "usd": 0.04934144
+                },
+                "cache_write_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "output": {
+                  "tokens": 18899,
+                  "usd": 0.0226788
+                }
+              }
+            },
+            "long_context": {
+              "requests": 0,
+              "components": {
+                "input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "cached_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "cache_write_input": {
+                  "tokens": 0,
+                  "usd": 0.0
+                },
+                "output": {
+                  "tokens": 0,
+                  "usd": 0.0
+                }
+              }
+            }
+          },
+          "long_context_threshold_tokens": 272000
+        }
+      },
+      "effective": {
+        "model": "gpt-5.6-luna",
+        "reasoning_effort": "max",
+        "turn_id": "019fdf87-39a4-7cd2-b301-eecb469dd483",
+        "timestamp": "2026-08-08T04:00:09.313Z"
+      },
+      "token_usage": {
+        "status": "observed",
+        "source": "local-rollout-event_msg.info.total_token_usage:last-readable",
+        "scope": "last-readable-rollout-total",
+        "timestamp": "2026-08-08T04:03:13.315Z",
+        "input_tokens": 2671844,
+        "cached_input_tokens": 2467072,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 18899,
+        "reasoning_output_tokens": 11351,
+        "total_tokens": 2690743,
+        "unavailable_categories": []
+      },
+      "request_token_usage": {
+        "status": "observed",
+        "source": "local-rollout-event_msg.info.last_token_usage:deduplicated",
+        "scope": "deduplicated-request-usage-events",
+        "request_count": 27,
+        "readable_snapshot_count": 28,
+        "snapshots": [
+          {
+            "timestamp": "2026-08-08T03:55:04.853Z",
+            "input_tokens": 14099,
+            "cached_input_tokens": 9984,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 600,
+            "reasoning_output_tokens": 441,
+            "total_tokens": 14699,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:10.210Z",
+            "input_tokens": 18759,
+            "cached_input_tokens": 13056,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 251,
+            "reasoning_output_tokens": 206,
+            "total_tokens": 19010,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:24.436Z",
+            "input_tokens": 23767,
+            "cached_input_tokens": 18176,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 725,
+            "reasoning_output_tokens": 474,
+            "total_tokens": 24492,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:35.988Z",
+            "input_tokens": 26119,
+            "cached_input_tokens": 23296,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 593,
+            "reasoning_output_tokens": 450,
+            "total_tokens": 26712,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:45.183Z",
+            "input_tokens": 26736,
+            "cached_input_tokens": 25344,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 443,
+            "reasoning_output_tokens": 222,
+            "total_tokens": 27179,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:55:57.149Z",
+            "input_tokens": 34327,
+            "cached_input_tokens": 26368,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 617,
+            "reasoning_output_tokens": 383,
+            "total_tokens": 34944,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:04.494Z",
+            "input_tokens": 34977,
+            "cached_input_tokens": 33536,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 331,
+            "reasoning_output_tokens": 61,
+            "total_tokens": 35308,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:13.077Z",
+            "input_tokens": 39518,
+            "cached_input_tokens": 34560,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 319,
+            "reasoning_output_tokens": 63,
+            "total_tokens": 39837,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:19.657Z",
+            "input_tokens": 51280,
+            "cached_input_tokens": 38656,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 285,
+            "reasoning_output_tokens": 60,
+            "total_tokens": 51565,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:26.029Z",
+            "input_tokens": 60592,
+            "cached_input_tokens": 50944,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 271,
+            "reasoning_output_tokens": 40,
+            "total_tokens": 60863,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:32.599Z",
+            "input_tokens": 70824,
+            "cached_input_tokens": 60160,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 279,
+            "reasoning_output_tokens": 59,
+            "total_tokens": 71103,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:37.692Z",
+            "input_tokens": 81717,
+            "cached_input_tokens": 70400,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 208,
+            "reasoning_output_tokens": 21,
+            "total_tokens": 81925,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:42.622Z",
+            "input_tokens": 88270,
+            "cached_input_tokens": 80640,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 201,
+            "reasoning_output_tokens": 14,
+            "total_tokens": 88471,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:49.012Z",
+            "input_tokens": 92689,
+            "cached_input_tokens": 87808,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 255,
+            "reasoning_output_tokens": 82,
+            "total_tokens": 92944,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:56:57.520Z",
+            "input_tokens": 95534,
+            "cached_input_tokens": 91904,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 390,
+            "reasoning_output_tokens": 94,
+            "total_tokens": 95924,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:05.315Z",
+            "input_tokens": 106035,
+            "cached_input_tokens": 94976,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 334,
+            "reasoning_output_tokens": 84,
+            "total_tokens": 106369,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:11.808Z",
+            "input_tokens": 118087,
+            "cached_input_tokens": 105216,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 264,
+            "reasoning_output_tokens": 48,
+            "total_tokens": 118351,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:17.582Z",
+            "input_tokens": 129223,
+            "cached_input_tokens": 117504,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 235,
+            "reasoning_output_tokens": 75,
+            "total_tokens": 129458,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:25.226Z",
+            "input_tokens": 140346,
+            "cached_input_tokens": 128768,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 342,
+            "reasoning_output_tokens": 110,
+            "total_tokens": 140688,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:32.271Z",
+            "input_tokens": 149845,
+            "cached_input_tokens": 140032,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 299,
+            "reasoning_output_tokens": 22,
+            "total_tokens": 150144,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:37.176Z",
+            "input_tokens": 160903,
+            "cached_input_tokens": 149248,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 141,
+            "reasoning_output_tokens": 41,
+            "total_tokens": 161044,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:42.574Z",
+            "input_tokens": 163203,
+            "cached_input_tokens": 160512,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 223,
+            "reasoning_output_tokens": 15,
+            "total_tokens": 163426,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:57:48.610Z",
+            "input_tokens": 168557,
+            "cached_input_tokens": 162560,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 240,
+            "reasoning_output_tokens": 59,
+            "total_tokens": 168797,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:58:21.553Z",
+            "input_tokens": 176776,
+            "cached_input_tokens": 167680,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1746,
+            "reasoning_output_tokens": 1526,
+            "total_tokens": 178522,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T03:58:30.843Z",
+            "input_tokens": 188663,
+            "cached_input_tokens": 175872,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 347,
+            "reasoning_output_tokens": 212,
+            "total_tokens": 189010,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:00:09.124Z",
+            "input_tokens": 188663,
+            "cached_input_tokens": 175872,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 347,
+            "reasoning_output_tokens": 212,
+            "total_tokens": 189010,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:01:43.338Z",
+            "input_tokens": 203429,
+            "cached_input_tokens": 197376,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4116,
+            "reasoning_output_tokens": 3901,
+            "total_tokens": 207545,
+            "unavailable_categories": []
+          },
+          {
+            "timestamp": "2026-08-08T04:03:13.315Z",
+            "input_tokens": 207569,
+            "cached_input_tokens": 202496,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 4844,
+            "reasoning_output_tokens": 2588,
+            "total_tokens": 212413,
+            "unavailable_categories": []
+          }
+        ],
+        "duplicate_snapshots_ignored": 1,
+        "sum": {
+          "input_tokens": 2671844,
+          "cached_input_tokens": 2467072,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 18899,
+          "reasoning_output_tokens": 11351,
+          "total_tokens": 2690743
+        }
+      },
+      "cost_estimate": {
+        "status": "estimated",
+        "basis": "api-equivalent-standard-token-only",
+        "currency": "USD",
+        "pricing_updated_at": "2026-08-02",
+        "pricing_model": "gpt-5.6-luna",
+        "long_context_pricing": "tiered",
+        "scope": "last-token-usage-per-request",
+        "components": {
+          "input": {
+            "tokens": 204772,
+            "usd": 0.0409544
+          },
+          "cached_input": {
+            "tokens": 2467072,
+            "usd": 0.04934144
+          },
+          "cache_write_input": {
+            "tokens": 0,
+            "usd": 0.0
+          },
+          "output": {
+            "tokens": 18899,
+            "usd": 0.0226788
+          }
+        },
+        "total_usd": 0.11297464,
+        "exclusions": [
+          "tool fees",
+          "modality fees",
+          "subscription billing"
+        ],
+        "request_count": 27,
+        "standard_request_count": 27,
+        "long_context_request_count": 0,
+        "request_segments": {
+          "standard": {
+            "requests": 27,
+            "components": {
+              "input": {
+                "tokens": 204772,
+                "usd": 0.0409544
+              },
+              "cached_input": {
+                "tokens": 2467072,
+                "usd": 0.04934144
+              },
+              "cache_write_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "output": {
+                "tokens": 18899,
+                "usd": 0.0226788
+              }
+            }
+          },
+          "long_context": {
+            "requests": 0,
+            "components": {
+              "input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "cached_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "cache_write_input": {
+                "tokens": 0,
+                "usd": 0.0
+              },
+              "output": {
+                "tokens": 0,
+                "usd": 0.0
+              }
+            }
+          }
+        },
+        "long_context_threshold_tokens": 272000
+      },
+      "resolution": {
+        "method": "rollout-id-fallback",
+        "fallback_used": true,
+        "requested_agent_id": "019fdf82-5d5e-7ad3-952a-0acb69490932",
+        "matched_rollout_id": "019fdf82-5d5e-7ad3-952a-0acb69490932"
+      }
+    },
+    {
+      "work_package": "WP-003",
+      "role": "implementer",
+      "agent_id": "main-chat-fallback-implementer",
+      "state": "completed",
+      "fallback": {
+        "used": true,
+        "approved": true,
+        "reason": "Tentativas de implementação delegada completaram sem aplicar o patch necessário; o usuário autorizou a continuação direta no AISDD.",
+        "agent_unavailable": true,
+        "attempts": [
+          {
+            "agent_id": "019fdf86-0d16-7310-9ef7-1d569c1d88f9",
+            "result": "Relatou bloqueio e não criou o script solicitado."
+          },
+          {
+            "agent_id": "019fdf86-0dcd-7760-9e92-d21c76f023ec",
+            "result": "Concluiu sem aplicar o patch solicitado."
+          },
+          {
+            "agent_id": "019fdf8d-2327-7dd2-9237-cc95ad876550",
+            "result": "Tentativa de implementação encerrada sem aplicar mudanças."
+          }
+        ],
+        "direct_work": {
+          "operation": "write",
+          "scope": [
+            "scripts/delegation_telemetry.py",
+            "scripts/model_routing.py",
+            "SKILL.md",
+            "references/model-routing.md",
+            "references/completion-standard.md",
+            "assets/templates/evidence.md"
+          ],
+          "result": "Collector v2, guarda de roteamento e documentação AISDD implementados; nenhum arquivo do Agent Bridge foi alterado."
+        }
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "main-chat-fallback-implementer"
+        },
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "agent_evidence": {
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "effective": {
+        "model": "unknown",
+        "reasoning_effort": "unknown"
+      },
+      "token_usage": {
+        "status": "not-available",
+        "reason": "cumulative token usage is unavailable"
+      },
+      "request_token_usage": {
+        "status": "not-available",
+        "reason": "per-request token usage is unavailable"
+      },
+      "cost_estimate": {
+        "status": "not-available",
+        "reason": "cost estimate is unavailable"
+      }
+    },
+    {
+      "work_package": "WP-004",
+      "role": "test-engineer",
+      "agent_id": "main-chat-fallback-test-engineer",
+      "state": "completed",
+      "fallback": {
+        "used": true,
+        "approved": true,
+        "reason": "A tentativa de Test Engineer não retornou uma execução aplicável; o usuário autorizou a validação direta no AISDD.",
+        "agent_unavailable": true,
+        "attempts": [
+          {
+            "agent_id": "019fdf91-1b88-70a2-bd57-2c5d566f178a",
+            "result": "Probe não retornou antes de ser interrompido."
+          }
+        ],
+        "direct_work": {
+          "operation": "write",
+          "scope": [
+            "tests/test_delegation_telemetry.py",
+            "tests/test_delegation_routing.py"
+          ],
+          "result": "Testes anotados para idempotência, coleta, indisponibilidade e guarda de modelo/effort; suíte focada aprovada."
+        }
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "main-chat-fallback-test-engineer"
+        },
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "agent_evidence": {
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "effective": {
+        "model": "unknown",
+        "reasoning_effort": "unknown"
+      },
+      "token_usage": {
+        "status": "not-available",
+        "reason": "cumulative token usage is unavailable"
+      },
+      "request_token_usage": {
+        "status": "not-available",
+        "reason": "per-request token usage is unavailable"
+      },
+      "cost_estimate": {
+        "status": "not-available",
+        "reason": "cost estimate is unavailable"
+      }
+    },
+    {
+      "work_package": "WP-005",
+      "role": "verifier",
+      "agent_id": "main-chat-fallback-verifier",
+      "state": "completed",
+      "fallback": {
+        "used": true,
+        "approved": true,
+        "reason": "Não havia Verifier externo responsivo após as falhas de despacho observadas; a verificação foi executada diretamente e registrada para auditoria.",
+        "agent_unavailable": true,
+        "attempts": [
+          {
+            "result": "Nenhum rollout de Verifier aplicável ficou disponível no runtime desta execução."
+          }
+        ],
+        "direct_work": {
+          "operation": "execute",
+          "scope": [
+            "scripts/validate_feature.py",
+            "scripts/verify_feature.py",
+            "scripts/check_drift.py",
+            "tests/test_delegation_telemetry.py"
+          ],
+          "result": "Compilação, testes focados, suíte completa, contrato v2 e check de drift executados; resultados registrados nos artefatos da feature."
+        }
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "main-chat-fallback-verifier"
+        },
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "agent_evidence": {
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "effective": {
+        "model": "unknown",
+        "reasoning_effort": "unknown"
+      },
+      "token_usage": {
+        "status": "not-available",
+        "reason": "cumulative token usage is unavailable"
+      },
+      "request_token_usage": {
+        "status": "not-available",
+        "reason": "per-request token usage is unavailable"
+      },
+      "cost_estimate": {
+        "status": "not-available",
+        "reason": "cost estimate is unavailable"
+      }
+    },
+    {
+      "work_package": "WP-006",
+      "role": "reviewer",
+      "agent_id": "main-chat-fallback-reviewer",
+      "state": "completed",
+      "fallback": {
+        "used": true,
+        "approved": true,
+        "reason": "A revisão independente foi consolidada diretamente depois que não houve Reviewer externo responsivo no despacho desta execução.",
+        "agent_unavailable": true,
+        "attempts": [
+          {
+            "result": "Nenhum rollout de Reviewer aplicável ficou disponível após as tentativas de delegação."
+          }
+        ],
+        "direct_work": {
+          "operation": "read",
+          "scope": [
+            "scripts/delegation_telemetry.py",
+            "scripts/model_routing.py",
+            "tests/test_delegation_telemetry.py"
+          ],
+          "result": "Revisão de segurança contra sobrescrita, separação de parcelas e compatibilidade da CLI concluída."
+        }
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "main-chat-fallback-reviewer"
+        },
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "agent_evidence": {
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "effective": {
+        "model": "unknown",
+        "reasoning_effort": "unknown"
+      },
+      "token_usage": {
+        "status": "not-available",
+        "reason": "cumulative token usage is unavailable"
+      },
+      "request_token_usage": {
+        "status": "not-available",
+        "reason": "per-request token usage is unavailable"
+      },
+      "cost_estimate": {
+        "status": "not-available",
+        "reason": "cost estimate is unavailable"
+      }
+    },
+    {
+      "work_package": "WP-007",
+      "role": "documentation-reviewer",
+      "agent_id": "main-chat-fallback-documentation-reviewer",
+      "state": "completed",
+      "fallback": {
+        "used": true,
+        "approved": true,
+        "reason": "A revisão documental foi feita diretamente porque não houve Documentation Reviewer externo responsivo no despacho desta execução.",
+        "agent_unavailable": true,
+        "attempts": [
+          {
+            "result": "Nenhum rollout de Documentation Reviewer aplicável ficou disponível após as tentativas de delegação."
+          }
+        ],
+        "direct_work": {
+          "operation": "read",
+          "scope": [
+            "SKILL.md",
+            "references/model-routing.md",
+            "references/completion-standard.md",
+            "assets/templates/evidence.md"
+          ],
+          "result": "Documentação alinhada ao collector v2, à guarda de roteamento e à regra de não gerar markers sintéticos."
+        }
+      },
+      "collection": {
+        "selector": {
+          "kind": "agent_id",
+          "value": "main-chat-fallback-documentation-reviewer"
+        },
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "agent_evidence": {
+        "status": "not-found",
+        "reason": "no matching subagent rollout was found"
+      },
+      "effective": {
+        "model": "unknown",
+        "reasoning_effort": "unknown"
+      },
+      "token_usage": {
+        "status": "not-available",
+        "reason": "cumulative token usage is unavailable"
+      },
+      "request_token_usage": {
+        "status": "not-available",
+        "reason": "per-request token usage is unavailable"
+      },
+      "cost_estimate": {
+        "status": "not-available",
+        "reason": "cost estimate is unavailable"
+      }
+    }
+  ],
+  "totals": {
+    "delegated_subtotal": {
+      "status": "estimated",
+      "currency": "USD",
+      "total_usd": 0.21421452,
+      "costed_agents": 2,
+      "delegated_agents": 7,
+      "unavailable_agents": 5
+    },
+    "unavailable": {
+      "status": "not-available",
+      "count": 5,
+      "delegations": [
+        {
+          "work_package": "WP-003",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-004",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-005",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-006",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-007",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "delegated_subtotal": {
+      "status": "estimated",
+      "currency": "USD",
+      "total_usd": 0.21421452,
+      "costed_agents": 2,
+      "delegated_agents": 7,
+      "unavailable_agents": 5
+    },
+    "unavailable": {
+      "status": "not-available",
+      "count": 5,
+      "delegations": [
+        {
+          "work_package": "WP-003",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-004",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-005",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-006",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        },
+        {
+          "work_package": "WP-007",
+          "status": "not-found",
+          "reason": "cost estimate is unavailable"
+        }
+      ]
+    }
+  },
+  "delegated_subtotal": {
+    "status": "estimated",
+    "currency": "USD",
+    "total_usd": 0.21421452,
+    "costed_agents": 2,
+    "delegated_agents": 7,
+    "unavailable_agents": 5
+  },
+  "unavailable": {
+    "status": "not-available",
+    "count": 5,
+    "delegations": [
+      {
+        "work_package": "WP-003",
+        "status": "not-found",
+        "reason": "cost estimate is unavailable"
+      },
+      {
+        "work_package": "WP-004",
+        "status": "not-found",
+        "reason": "cost estimate is unavailable"
+      },
+      {
+        "work_package": "WP-005",
+        "status": "not-found",
+        "reason": "cost estimate is unavailable"
+      },
+      {
+        "work_package": "WP-006",
+        "status": "not-found",
+        "reason": "cost estimate is unavailable"
+      },
+      {
+        "work_package": "WP-007",
+        "status": "not-found",
+        "reason": "cost estimate is unavailable"
+      }
+    ]
+  },
+  "collection_status": "partial"
+}
