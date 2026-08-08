@@ -1,6 +1,6 @@
 {
   "feature": "agent-runtime-model-evidence",
-  "generated_at": "2026-08-06T04:36:13.127874+00:00",
+  "generated_at": "2026-08-08T04:27:49.714614+00:00",
   "command": [
     "python",
     "-B",
@@ -22,72 +22,72 @@
     "AC-401": [
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 49,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 56,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 82,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 89,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       }
     ],
     "AC-402": [
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 61,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 68,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       }
     ],
     "AC-403": [
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 71,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 78,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 111,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 335,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 127,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 351,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 144,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 368,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 160,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 384,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       }
     ],
     "AC-404": [
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 93,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 100,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       },
       {
         "path": "tests/test_agent_evidence.py",
-        "line": 103,
-        "file_sha256": "3f9c15ae37afe9de21f24d39fe188a789935e1024e08146f5786156c4da003bf",
+        "line": 110,
+        "file_sha256": "a996964ce88a7a406a9fd62fe44e7b7e3aa52bc1e820560f6385f2e920ab5920",
         "skipped": false
       }
     ]
   },
-  "mapping_sha256": "034f45445a698664830a31e5b1830a9231a1676365ec986d31fb6c692b24ee57",
+  "mapping_sha256": "c0595647c870ec8cdb44397e191af8ac1d6b12c700d58b5eabdc845472e51695",
   "passed": true
 }

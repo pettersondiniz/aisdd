@@ -11,6 +11,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "task_window.py"
+AGENT_EVIDENCE_SCRIPT = ROOT / "scripts" / "agent_evidence.py"
 
 
 def sidecar(root: Path, *parts: str) -> Path:
@@ -975,6 +976,148 @@ output_per_million = 2.0
                 "other-turn",
             )
             self.assertIn("saved window end turn_id", payload["reason"])
+
+    # @spec:AC-527
+    def test_final_report_rejects_an_open_window(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            write_main_session(root, requests=[])
+            window = sidecar(root, "task-window.json")
+            final_report = sidecar(root, "task-window-report.json")
+            run_json("start", "--task-id", "demo-task", "--sessions-root", str(root), "--output", str(window))
+
+            _, payload = run_failure(
+                "report",
+                "--window",
+                str(window),
+                "--sessions-root",
+                str(root),
+                "--final",
+                "--output",
+                str(final_report),
+            )
+            self.assertIn("closed task window", payload["reason"])
+            self.assertFalse(final_report.exists())
+
+    # @spec:AC-527
+    # @spec:AC-528
+    def test_final_report_for_a_closed_window_records_scope_exclusions_and_cost(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            request = usage(100, 50, cached=20)
+            session = write_main_session(root, requests=[("standard", request, usage(160, 90, cached=30, reasoning=10))])
+            window = sidecar(root, "task-window.json")
+            final_report = sidecar(root, "task-window-report.json")
+            run_json("start", "--task-id", "demo-task", "--sessions-root", str(root), "--output", str(window))
+            append_task_complete(session)
+            run_json("close", "--window", str(window), "--sessions-root", str(root), "--end-turn-id", "task-start")
+            pricing = root / "pricing.toml"
+            pricing.write_text("""
+[models.standard]
+long_context_pricing = "standard"
+input_per_million = 1.0
+cached_input_per_million = 0.1
+cache_write_input_per_million = 1.25
+output_per_million = 2.0
+""", encoding="utf-8")
+
+            payload = run_json(
+                "report",
+                "--window",
+                str(window),
+                "--sessions-root",
+                str(root),
+                "--pricing-config",
+                str(pricing),
+                "--final",
+                "--output",
+                str(final_report),
+            )
+            written = json.loads(final_report.read_text(encoding="utf-8"))
+            self.assertEqual(written["schema_version"], 1)
+            self.assertTrue(written["final"])
+            self.assertTrue(payload["final"])
+            self.assertFalse(payload["provisional"])
+            self.assertEqual(written, payload)
+            self.assertEqual(written["scope"], "main-chat-orchestrator")
+            self.assertEqual(
+                written["exclusions"],
+                ["delegated-agent rollouts", "tool fees", "modality fees", "subscription billing"],
+            )
+            self.assertEqual(written["cost_estimate"]["status"], "estimated")
+            self.assertEqual(written["cost_estimate"]["exclusions"], written["exclusions"])
+
+    # @spec:AC-529
+    def test_rollout_and_main_chat_cost_scopes_stay_separate_when_main_chat_cost_is_unavailable(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            agent_sessions = root / "agent-sessions"
+            agent_rollout = agent_sessions / "2026" / "08" / "02" / "rollout-agent.jsonl"
+            agent_rollout.parent.mkdir(parents=True)
+            agent_usage = usage(100, 50, cached=20)
+            agent_events = [
+                {
+                    "type": "session_meta",
+                    "payload": {
+                        "session_id": "agent-rollout",
+                        "source": {"subagent": {"thread_spawn": {"agent_path": "/root/tester"}}},
+                    },
+                },
+                {"type": "turn_context", "payload": {"model": "standard", "effort": "high"}},
+                {
+                    "type": "event_msg",
+                    "payload": {"info": {"total_token_usage": agent_usage, "last_token_usage": agent_usage}},
+                },
+            ]
+            agent_rollout.write_text("\n".join(json.dumps(item) for item in agent_events) + "\n", encoding="utf-8")
+            pricing = root / "pricing.toml"
+            pricing.write_text("""
+[models.standard]
+long_context_pricing = "standard"
+input_per_million = 1.0
+cached_input_per_million = 0.1
+cache_write_input_per_million = 1.25
+output_per_million = 2.0
+""", encoding="utf-8")
+
+            agent_run = subprocess.run(
+                [
+                    sys.executable,
+                    str(AGENT_EVIDENCE_SCRIPT),
+                    "--sessions-root",
+                    str(agent_sessions),
+                    "--pricing-config",
+                    str(pricing),
+                    "--agent-id",
+                    "/root/tester",
+                    "--json",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            agent_payload = json.loads(agent_run.stdout)
+            self.assertEqual(agent_payload["cost_estimate"]["status"], "estimated")
+            self.assertEqual(agent_payload["token_usage"]["scope"], "last-readable-rollout-total")
+            self.assertEqual(agent_payload["cost_estimate"]["scope"], "last-token-usage-per-request")
+
+            session = write_main_session(root, requests=[])
+            window = sidecar(root, "task-window.json")
+            run_json("start", "--task-id", "demo-task", "--sessions-root", str(root), "--output", str(window))
+            append_task_complete(session)
+            run_json("close", "--window", str(window), "--sessions-root", str(root), "--end-turn-id", "task-start")
+            main_payload = run_json(
+                "report",
+                "--window",
+                str(window),
+                "--sessions-root",
+                str(root),
+                "--pricing-config",
+                str(pricing),
+            )
+            self.assertEqual(main_payload["scope"], "main-chat-orchestrator")
+            self.assertEqual(main_payload["cost_estimate"]["status"], "not-available")
+            self.assertNotIn("total_usd", main_payload["cost_estimate"])
 
     # @spec:AC-520
     def test_report_and_close_require_the_persisted_boundary_identity(self) -> None:

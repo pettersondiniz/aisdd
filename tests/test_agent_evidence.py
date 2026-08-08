@@ -6,10 +6,16 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "agent_evidence.py"
+SCRIPTS = ROOT / "scripts"
+if str(SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS))
+
+import agent_evidence  # noqa: E402
 
 
 def write_rollout(
@@ -19,8 +25,9 @@ def write_rollout(
     contexts: list[dict],
     usages: list[dict] | None = None,
     last_usages: list[dict] | None = None,
+    directory: tuple[str, ...] = ("2026", "08", "02"),
 ) -> None:
-    rollout = root / "2026" / "08" / "02" / name
+    rollout = root.joinpath(*directory, name)
     rollout.parent.mkdir(parents=True, exist_ok=True)
     usage_events = []
     for index in range(max(len(usages or []), len(last_usages or []))):
@@ -107,6 +114,223 @@ class AgentEvidenceTests(unittest.TestCase):
             write_rollout(sessions, "rollout-2026-08-02T18-51-36-019fc476-042b-7b23-8c1f-8c38e2bed985.jsonl", {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"}, [{"model": "gpt-5.5", "effort": "high"}])
             run = subprocess.run([sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--rollout-id", "019fc476", "--json"], check=True, capture_output=True, text=True)
             self.assertEqual(json.loads(run.stdout)["status"], "not-found")
+
+    # @spec:AC-523
+    # @spec:AC-524
+    def test_agent_id_falls_back_to_an_exact_rollout_uuid_and_emits_an_alert(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            sessions = Path(temporary)
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            pricing = sessions / "pricing.toml"
+            pricing.write_text("""
+[models.test]
+long_context_pricing = "standard"
+input_per_million = 1.0
+cached_input_per_million = 0.1
+cache_write_input_per_million = 1.25
+output_per_million = 2.0
+""", encoding="utf-8")
+            token_usage = {
+                "input_tokens": 100,
+                "cached_input_tokens": 10,
+                "cache_write_input_tokens": 5,
+                "output_tokens": 50,
+                "reasoning_output_tokens": 10,
+                "total_tokens": 150,
+            }
+            write_rollout(
+                sessions,
+                f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl",
+                {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "test", "effort": "high"}],
+                [token_usage],
+                last_usages=[token_usage],
+            )
+
+            json_run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--pricing-config", str(pricing), "--agent-id", agent_id, "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(json_run.stdout)
+            self.assertEqual(payload["status"], "resolved")
+            self.assertTrue(payload["resolution"]["fallback_used"])
+            self.assertEqual(payload["resolution"]["requested_agent_id"], agent_id)
+            self.assertEqual(payload["resolution"]["matched_rollout_id"], agent_id)
+            self.assertEqual(payload["effective"]["model"], "test")
+            self.assertEqual(payload["cost_estimate"]["status"], "estimated")
+
+            text_run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--pricing-config", str(pricing), "--agent-id", agent_id],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertIn("AGENT_ID_FALLBACK", text_run.stdout)
+
+    # @spec:AC-524
+    def test_partial_agent_uuid_is_not_found_while_direct_agent_path_still_resolves(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            sessions = Path(temporary)
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            write_rollout(
+                sessions,
+                f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl",
+                {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "gpt-5.6-terra", "effort": "high"}],
+            )
+            write_rollout(
+                sessions,
+                "rollout-direct-agent-path.jsonl",
+                {"agent_path": "/root/reviewer", "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "gpt-5.6-luna", "effort": "medium"}],
+            )
+
+            partial_run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", agent_id[:8], "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(json.loads(partial_run.stdout)["status"], "not-found")
+
+            direct_run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", "/root/reviewer", "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            direct_payload = json.loads(direct_run.stdout)
+            self.assertEqual(direct_payload["status"], "resolved")
+            self.assertNotIn("resolution", direct_payload)
+            self.assertEqual(direct_payload["effective"]["model"], "gpt-5.6-luna")
+
+    # @spec:AC-525
+    def test_agent_id_uuid_fallback_refuses_ambiguous_filenames_across_date_directories(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            sessions = Path(temporary)
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            filename = f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl"
+            for directory in (("2026", "08", "02"), ("2026", "08", "03")):
+                write_rollout(
+                    sessions,
+                    filename,
+                    {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"},
+                    [{"model": "test", "effort": "high"}],
+                    directory=directory,
+                )
+
+            run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", agent_id, "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(run.stdout)
+            self.assertEqual(payload["status"], "ambiguous")
+            self.assertIn("more than one rollout filename", payload["reason"])
+            self.assertNotIn("cost_estimate", payload)
+
+    # @spec:AC-525
+    def test_agent_id_uuid_fallback_refuses_conflicting_non_null_agent_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            sessions = Path(temporary)
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            write_rollout(
+                sessions,
+                f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl",
+                {"agent_path": "/root/another-agent", "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "test", "effort": "high"}],
+            )
+
+            run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", agent_id, "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(run.stdout)
+            self.assertEqual(payload["status"], "not-available")
+            self.assertIn("metadata conflicts", payload["reason"])
+            self.assertNotIn("cost_estimate", payload)
+
+    # @spec:AC-525
+    def test_agent_id_uuid_fallback_refuses_conflicting_session_meta_events(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            sessions = Path(temporary)
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            filename = f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl"
+            write_rollout(
+                sessions,
+                filename,
+                {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "test", "effort": "high"}],
+            )
+            rollout = sessions / "2026" / "08" / "02" / filename
+            with rollout.open("a", encoding="utf-8") as source:
+                source.write(json.dumps({
+                    "type": "session_meta",
+                    "payload": {
+                        "session_id": filename,
+                        "source": {"subagent": {"thread_spawn": {
+                            "agent_path": "/root/another-agent",
+                            "parent_thread_id": "parent",
+                            "agent_role": "reviewer",
+                        }}},
+                    },
+                }) + "\n")
+
+            run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", agent_id, "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(run.stdout)
+            self.assertEqual(payload["status"], "not-available")
+            self.assertIn("no readable subagent metadata", payload["reason"])
+            self.assertNotIn("cost_estimate", payload)
+
+    # @spec:AC-525
+    def test_is_within_sessions_root_fails_closed_when_resolution_raises_runtime_error(self) -> None:
+        with patch.object(Path, "resolve", side_effect=RuntimeError("resolution failed")):
+            self.assertFalse(
+                agent_evidence.is_within_sessions_root(Path("candidate.jsonl"), Path("sessions"))
+            )
+
+    # @spec:AC-525
+    def test_agent_id_uuid_fallback_refuses_a_symlinked_rollout_outside_sessions_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            sessions = root / "sessions"
+            outside = root / "outside"
+            agent_id = "019fc476-042b-7b23-8c1f-8c38e2bed985"
+            filename = f"rollout-2026-08-02T18-51-36-{agent_id}.jsonl"
+            write_rollout(
+                outside,
+                filename,
+                {"agent_path": None, "parent_thread_id": "parent", "agent_role": "reviewer"},
+                [{"model": "test", "effort": "high"}],
+            )
+            target = outside / "2026" / "08" / "02" / filename
+            candidate = sessions / "2026" / "08" / "02" / filename
+            candidate.parent.mkdir(parents=True)
+            try:
+                candidate.symlink_to(target)
+            except OSError as error:
+                self.skipTest(f"Windows policy denied creation of the required file symlink: {error}")
+
+            run = subprocess.run(
+                [sys.executable, str(SCRIPT), "--sessions-root", str(sessions), "--agent-id", agent_id, "--json"],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            payload = json.loads(run.stdout)
+            self.assertEqual(payload["status"], "not-available")
+            self.assertIn("outside sessions root", payload["reason"])
+            self.assertNotIn("cost_estimate", payload)
 
     # @spec:AC-403
     def test_tolerates_malformed_optional_session_shapes(self) -> None:

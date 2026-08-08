@@ -37,7 +37,7 @@ A mudança é uma refatoração localizada nos scripts de validação. Deve pres
 - Arquivos: `specs/validation-performance-refactor/verification.json`, `evidence.md` e `status.md`.
 - Dependências: M2.
 - Passos: executar o comando real pelo `verify_feature.py`; executar `validate_feature.py`; executar `check_drift.py`; revisar diff e atualizar evidências sem mascarar drift externo.
-- Validação: comandos AISDD executados; a feature passou. O check global continua apontando apenas drift preexistente fora do escopo.
+- Validação: comandos AISDD executados; a feature passou e o check global atual retornou OK após o refresh da evidência desta feature. A referência anterior ao drift externo permanece apenas como histórico.
 - Risco/rollback: `verification.json` é gerado pelo verificador; não editar manualmente.
 - Concluído quando: critérios têm mapa de testes atual, limitações documentadas e o plano/status refletem a realidade.
 
@@ -58,4 +58,4 @@ Tarefas com arquivos em comum ou dependência explícita não serão executadas 
 - O código atual está em `scripts/` e `tests/`, embora as imagens mencionem `skills/aisdd/`.
 - A linha de base tem 28 testes passando.
 - `scripts/check_drift.py` já possui uma exceção para features baseline; ela será preservada.
-- O drift atual de `specs/agent-runtime-model-evidence/verification.json` antecede esta mudança e será reportado separadamente.
+- A referência ao drift de `specs/agent-runtime-model-evidence/verification.json` antecede esta mudança e permanece como registro histórico; o estado atual foi verificado pelo fluxo próprio e está OK.

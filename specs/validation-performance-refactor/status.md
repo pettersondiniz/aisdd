@@ -4,7 +4,7 @@
 - Fase atual: Complete
 - Última atualização: 2026-08-05
 - Próxima ação: nenhuma para esta feature.
-- Bloqueios: nenhum para a implementação; há drift preexistente em `specs/agent-runtime-model-evidence/verification.json`.
+- Bloqueios: nenhum. O refresh da evidência desta feature foi executado pelo fluxo próprio e o check global atual retornou OK; referências anteriores ao drift são históricas.
 
 ## Histórico
 
@@ -17,4 +17,4 @@
 - O mapa de testes será calculado uma vez em `check_drift.py` e injetado em `validate_feature`.
 - A CLI existente será preservada.
 - Não haverá alteração na cópia instalada/global da skill nesta tarefa.
-- O check global foi executado, mas continua falhando somente pelo drift preexistente em `specs/agent-runtime-model-evidence/verification.json`.
+- O check global foi repetido após a atualização do mapa de testes e retornou `OK: nenhum drift estrutural ou de rastreabilidade encontrado`.

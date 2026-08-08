@@ -36,6 +36,13 @@ MAIN_SESSION_SOURCES = frozenset({"vscode", "cli", "desktop", "codex", "user"})
 MAIN_THREAD_SOURCES = frozenset({"user", "main"})
 END_BOUNDARY_KINDS = frozenset({"task_complete", "turn_aborted"})
 BOUNDARY_IDENTITY_FIELDS = ("event_index", "line", "kind", "turn_id")
+REPORT_SCOPE = "main-chat-orchestrator"
+REPORT_EXCLUSIONS = (
+    "delegated-agent rollouts",
+    "tool fees",
+    "modality fees",
+    "subscription billing",
+)
 
 
 def now_iso() -> str:
@@ -455,6 +462,22 @@ def _reject_session_output_collision(output: Path, sessions_root: Path, session_
             continue
 
 
+def _reject_report_output_collision(
+    output: Path,
+    window_path: Path,
+    sessions_root: Path,
+    session_path: Path,
+) -> None:
+    _reject_session_output_collision(output, sessions_root, session_path)
+    if not output.exists():
+        return
+    try:
+        if os.path.samefile(output, window_path):
+            raise ValueError("final report output must not overwrite task-window.json")
+    except OSError:
+        return
+
+
 def start_window(args: argparse.Namespace) -> dict[str, Any]:
     path, events, selection = select_main_session(args.sessions_root, args.session_file, args.session_id)
     _reject_session_output_collision(args.output, args.sessions_root, path)
@@ -835,9 +858,18 @@ def price_request_records(records: list[dict[str, Any]], pricing_path: Path, *, 
 
 
 def report_window(args: argparse.Namespace) -> dict[str, Any]:
+    final = bool(getattr(args, "final", False))
+    output = getattr(args, "output", None)
+    if final and output is None:
+        raise ValueError("--final requires --output")
+    if not final and output is not None:
+        raise ValueError("--output requires --final")
+
     window = read_window(args.window)
+    if final and window.get("status") != "closed":
+        raise ValueError("--final requires a closed task window")
     sessions_root = getattr(args, "sessions_root", default_sessions_root())
-    _, events = resolve_window_session(window, sessions_root)
+    session_path, events = resolve_window_session(window, sessions_root)
     start, end, selected = window_events(window, events)
     base, base_source = baseline_usage(events, start["event_index"])
     selected_end_index = end["event_index"] if end else len(events) - 1
@@ -966,9 +998,12 @@ def report_window(args: argparse.Namespace) -> dict[str, Any]:
         )
 
     result: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
         "status": "closed" if window.get("status") == "closed" else "open",
         "provisional": window.get("status") != "closed",
         "task_id": window["task_id"],
+        "scope": REPORT_SCOPE,
+        "exclusions": list(REPORT_EXCLUSIONS),
         "session": window["session"],
         "boundaries": {
             "start": start,
@@ -1051,8 +1086,17 @@ def report_window(args: argparse.Namespace) -> dict[str, Any]:
                 ignore_long_context=not args.respect_long_context,
             )
             result["cost_estimate"]["scope"] = "main-chat-task-window-cumulative-delta"
+    if isinstance(result.get("cost_estimate"), dict):
+        result["cost_estimate"]["exclusions"] = list(REPORT_EXCLUSIONS)
     if result["provisional"]:
         result.setdefault("warnings", []).append("task window is open; report is provisional until an end boundary is recorded")
+    if final:
+        if result["status"] != "closed" or result["provisional"]:
+            raise ValueError("--final requires a closed, non-provisional task window")
+        assert output is not None
+        result["final"] = True
+        _reject_report_output_collision(output, args.window, sessions_root, session_path)
+        write_window(output, result)
     return result
 
 
@@ -1095,6 +1139,8 @@ def main() -> int:
     report.add_argument("--window", type=Path, required=True)
     report.add_argument("--sessions-root", type=Path, default=default_sessions_root())
     report.add_argument("--pricing-config", type=Path, default=default_pricing_config())
+    report.add_argument("--final", action="store_true")
+    report.add_argument("--output", type=Path)
     long_context_flags = report.add_mutually_exclusive_group()
     long_context_flags.add_argument("--respect-long-context", action="store_true")
     long_context_flags.add_argument("--ignore-long-context", action="store_true")

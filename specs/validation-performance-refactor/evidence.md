@@ -12,7 +12,10 @@
 | `python scripts/verify_feature.py . specs/validation-performance-refactor -- python -m unittest discover -s tests -v` | 4 critérios com prova atual | 2026-08-05 |
 | `python scripts/validate_feature.py . specs/validation-performance-refactor` | Passou | 2026-08-05 |
 | `python scripts/validate_feature.py . specs/agent-runtime-token-cost-evidence` | Passou | 2026-08-05 |
-| `python scripts/check_drift.py .` | Falhou apenas por drift preexistente em `agent-runtime-model-evidence/verification.json` | 2026-08-05 |
+| `python scripts/check_drift.py .` | Resultado histórico anterior ao refresh; o check atual passou após a evidência ser regenerada | 2026-08-05 |
+| `python scripts/verify_feature.py . specs/validation-performance-refactor -- python -B -m unittest discover -s tests -q` | 4 critérios com prova atual; 122 testes passaram e 1 foi pulado | 2026-08-07 |
+| `python scripts/validate_feature.py . specs/validation-performance-refactor` | Passou após o refresh do mapa de testes | 2026-08-07 |
+| `python scripts/check_drift.py .` | Passou: nenhum drift estrutural ou de rastreabilidade | 2026-08-07 |
 
 ## Rastreabilidade
 
@@ -46,5 +49,5 @@ Resumo: agentes usados: 3; fallbacks: 0. A telemetria local não foi localizada 
 
 ## Riscos residuais
 
-- O drift preexistente de `agent-runtime-model-evidence/verification.json` pode continuar fazendo o check global falhar, mesmo com a nova feature correta.
+- A falha histórica de `agent-runtime-model-evidence/verification.json` foi registrada antes do refresh; o check atual passou e não há drift estrutural aberto nesta rodada.
 - O ganho de desempenho não será medido por benchmark; a prova será comportamental, verificando chamadas únicas e reutilização do objeto.

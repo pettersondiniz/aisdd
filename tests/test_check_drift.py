@@ -19,7 +19,7 @@ if str(SCRIPTS) not in sys.path:
 
 import check_drift  # noqa: E402
 import validate_feature as validate_feature_module  # noqa: E402
-from validate_feature import validate_feature  # noqa: E402
+from validate_feature import has_open_status, validate_feature  # noqa: E402
 from verify_feature import test_map  # noqa: E402
 
 
@@ -87,6 +87,318 @@ class CheckDriftTests(unittest.TestCase):
 
             self.assertEqual(result, [])
             self.assertIsInstance(result, list)
+
+    # @spec:AC-526
+    def test_validate_feature_requires_closed_matching_main_chat_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            feature, mapping = _write_mapped_feature(repo)
+            (feature / "plan.md").write_text(
+                "# Plano\n\n"
+                "Main-chat attribution: required\n\n"
+                "- T-601 (AC-601): tarefa\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(
+                validate_feature(repo, feature, full_map=mapping),
+                [
+                    "arquivo ausente: task-window.json",
+                    "arquivo ausente: task-window-report.json",
+                ],
+            )
+
+            window = {
+                "schema_version": 1,
+                "task_id": "WP-527",
+                "status": "closed",
+                "session": {"session_id": "session-527", "rollout_file": "rollout.jsonl"},
+                "start": {
+                    "event_index": 11,
+                    "line": 12,
+                    "kind": "task_started",
+                    "turn_id": "turn-527",
+                },
+                "end": {
+                    "event_index": 19,
+                    "line": 20,
+                    "kind": "task_complete",
+                    "turn_id": "turn-527",
+                },
+            }
+            report = {
+                "schema_version": 1,
+                "status": "closed",
+                "provisional": False,
+                "final": True,
+                "task_id": "WP-527",
+                "scope": "main-chat-orchestrator",
+                "exclusions": [
+                    "delegated-agent rollouts",
+                    "tool fees",
+                    "modality fees",
+                    "subscription billing",
+                ],
+                "session": {"session_id": "session-527", "rollout_file": "rollout.jsonl"},
+                "boundaries": {"start": window["start"], "end": window["end"]},
+                "cost_estimate": {"status": "estimated", "total_usd": 0.125},
+            }
+
+            def write_artifacts(current_window: dict[str, object], current_report: dict[str, object]) -> None:
+                (feature / "task-window.json").write_text(
+                    json.dumps(current_window) + "\n", encoding="utf-8"
+                )
+                (feature / "task-window-report.json").write_text(
+                    json.dumps(current_report) + "\n", encoding="utf-8"
+                )
+
+            rejected_cases = (
+                ("open window", {**window, "status": "open"}, report, "task-window.json deve estar fechado"),
+                ("provisional report", window, {**report, "provisional": True}, "task-window-report.json deve ser não-provisório"),
+                (
+                    "report without final marker",
+                    window,
+                    {key: value for key, value in report.items() if key != "final"},
+                    "task-window-report.json deve ser final",
+                ),
+                (
+                    "window without schema version",
+                    {key: value for key, value in window.items() if key != "schema_version"},
+                    report,
+                    "task-window.json tem schema incompatível",
+                ),
+                (
+                    "report with incompatible schema version",
+                    window,
+                    {**report, "schema_version": 2},
+                    "task-window-report.json tem schema incompatível",
+                ),
+                ("wrong report scope", window, {**report, "scope": "delegated-agent"}, "task-window-report.json deve usar scope main-chat-orchestrator"),
+                ("mismatched task", window, {**report, "task_id": "WP-528"}, "task-window-report.json task_id does not match task-window.json"),
+                (
+                    "mismatched session",
+                    window,
+                    {**report, "session": {"session_id": "session-528", "rollout_file": "rollout.jsonl"}},
+                    "task-window-report.json session identity does not match task-window.json",
+                ),
+                (
+                    "mismatched boundary",
+                    window,
+                    {**report, "boundaries": {"start": {**window["start"], "line": 13}, "end": window["end"]}},
+                    "task-window-report.json boundaries do not match task-window.json",
+                ),
+                (
+                    "unsafe rollout",
+                    {**window, "session": {"session_id": "session-527", "rollout_file": "../rollout.jsonl"}},
+                    report,
+                    "task-window.json has an unsafe rollout_file",
+                ),
+            )
+            for label, current_window, current_report, expected_error in rejected_cases:
+                with self.subTest(case=label):
+                    write_artifacts(current_window, current_report)
+                    self.assertIn(expected_error, validate_feature(repo, feature, full_map=mapping))
+
+    # @spec:AC-529
+    def test_validate_feature_requires_valid_main_chat_cost_and_accepts_final_cost_states(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            feature, mapping = _write_mapped_feature(repo)
+            (feature / "plan.md").write_text(
+                "# Plano\n\n"
+                "Main-chat attribution: required\n\n"
+                "- T-601 (AC-601): tarefa\n",
+                encoding="utf-8",
+            )
+            window = {
+                "schema_version": 1,
+                "task_id": "WP-527",
+                "status": "closed",
+                "session": {"session_id": "session-527", "rollout_file": "rollout.jsonl"},
+                "start": {
+                    "event_index": 11,
+                    "line": 12,
+                    "kind": "task_started",
+                    "turn_id": "turn-527",
+                },
+                "end": {
+                    "event_index": 19,
+                    "line": 20,
+                    "kind": "task_complete",
+                    "turn_id": "turn-527",
+                },
+            }
+            report = {
+                "schema_version": 1,
+                "status": "closed",
+                "provisional": False,
+                "final": True,
+                "task_id": "WP-527",
+                "scope": "main-chat-orchestrator",
+                "exclusions": [
+                    "delegated-agent rollouts",
+                    "tool fees",
+                    "modality fees",
+                    "subscription billing",
+                ],
+                "session": {"session_id": "session-527", "rollout_file": "rollout.jsonl"},
+                "boundaries": {"start": window["start"], "end": window["end"]},
+            }
+            (feature / "task-window.json").write_text(
+                json.dumps(window) + "\n", encoding="utf-8"
+            )
+
+            rejected_costs = (
+                ("zero estimated cost", {"status": "estimated", "total_usd": 0}, "task-window-report.json estimated cost lacks a valid total_usd"),
+                ("non-numeric estimated cost", {"status": "estimated", "total_usd": "0.125"}, "task-window-report.json estimated cost lacks a valid total_usd"),
+                ("unavailable cost without reason", {"status": "not-available"}, "task-window-report.json unavailable cost lacks a reason"),
+                (
+                    "unavailable cost with null total",
+                    {"status": "not-available", "reason": "telemetry is incomplete", "total_usd": None},
+                    "task-window-report.json unavailable cost must not include total_usd",
+                ),
+            )
+            for label, cost_estimate, expected_error in rejected_costs:
+                with self.subTest(cost=label):
+                    (feature / "task-window-report.json").write_text(
+                        json.dumps({**report, "cost_estimate": cost_estimate}) + "\n",
+                        encoding="utf-8",
+                    )
+                    self.assertIn(expected_error, validate_feature(repo, feature, full_map=mapping))
+
+            accepted_costs = (
+                {"status": "estimated", "total_usd": 0.125},
+                {"status": "not-available", "reason": "telemetry is incomplete"},
+            )
+            for cost_estimate in accepted_costs:
+                with self.subTest(cost=cost_estimate["status"]):
+                    (feature / "task-window-report.json").write_text(
+                        json.dumps({**report, "cost_estimate": cost_estimate}) + "\n",
+                        encoding="utf-8",
+                    )
+                    self.assertEqual(validate_feature(repo, feature, full_map=mapping), [])
+
+    # @spec:AC-705
+    def test_v1_status_ignores_historical_open_entries_but_rejects_current_pending(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            feature, mapping = _write_mapped_feature(repo)
+            historical_status = (
+                "# Status\n\n"
+                "## Histórico\n"
+                "- execução falhou\n"
+                "- pending\n\n"
+                "## Estado atual\n"
+                "- concluído\n"
+            )
+            (feature / "status.md").write_text(historical_status, encoding="utf-8")
+
+            self.assertFalse(has_open_status(historical_status))
+            self.assertTrue(has_open_status("## Estado atual: pending\n"))
+            self.assertTrue(has_open_status("Estado atual: pending\n"))
+            self.assertTrue(has_open_status("- Fase atual: pending\n"))
+            self.assertTrue(has_open_status("- Bloqueios: blocker aberto\n"))
+            self.assertTrue(has_open_status("## Fase atual\nEm andamento\n"))
+            self.assertTrue(has_open_status("## Bloqueios\nHá um blocker aberto\n"))
+            self.assertFalse(has_open_status("- Fase atual: concluída\n- Bloqueios: nenhum\n"))
+            self.assertFalse(
+                has_open_status("## Fase atual\nConcluída\n## Bloqueios\nNenhum\n")
+            )
+            self.assertTrue(has_open_status("## Perguntas abertas\n- Q-705: qual é a decisão?\n"))
+            self.assertTrue(has_open_status("## Suposições\n- ASM-705: o runtime está disponível.\n"))
+            self.assertFalse(has_open_status("## Perguntas abertas\n- Q-705: Resolvida\n"))
+            self.assertFalse(has_open_status("## Suposições\n- ASM-705: Validada\n"))
+            self.assertFalse(has_open_status("A frase specs pendentes não representa um estado estruturado.\n"))
+            table_status = (
+                "## History\n"
+                "| ID | Status |\n"
+                "| --- | --- |\n"
+                "| WP-1 | pending |\n\n"
+                "## Work packages\n"
+                "| ID | Status |\n"
+                "| --- | --- |\n"
+                "| WP-1 | completed |\n"
+            )
+            self.assertFalse(has_open_status(table_status))
+            self.assertTrue(has_open_status(table_status.replace("completed", "PENDING")))
+            self.assertFalse(has_open_status("```text\nstatus: pending\n```\n"))
+            self.assertEqual(validate_feature(repo, feature, full_map=mapping), [])
+
+            closed_sections = "# Status\n\n## Fase atual\nConcluída\n\n## Bloqueios\nNenhum\n"
+            (feature / "status.md").write_text(closed_sections, encoding="utf-8")
+            self.assertEqual(validate_feature(repo, feature, full_map=mapping), [])
+
+            open_sections = "# Status\n\n## Fase atual\nPendente\n\n## Bloqueios\nNenhum\n"
+            (feature / "status.md").write_text(open_sections, encoding="utf-8")
+            self.assertIn(
+                "status.md indica estado aberto",
+                validate_feature(repo, feature, full_map=mapping),
+            )
+
+            current_pending = historical_status.replace("- concluído", "- pending")
+            (feature / "status.md").write_text(current_pending, encoding="utf-8")
+            self.assertTrue(has_open_status(current_pending))
+            errors = validate_feature(repo, feature, full_map=mapping)
+            self.assertIn("status.md indica estado aberto", errors)
+
+    # @spec:AC-705
+    def test_historical_phase_and_blocker_sections_do_not_open_current_status(self) -> None:
+        historical = (
+            "# Status\n\n"
+            "## Historico\n"
+            "### Fase atual\nPendente\n"
+            "### Bloqueios\nHa um blocker aberto\n\n"
+            "## Fase atual\nConcluida\n"
+            "## Bloqueios\nNenhum\n"
+        )
+
+        self.assertFalse(has_open_status(historical))
+        self.assertTrue(has_open_status(historical.replace("Concluida", "Pendente")))
+        self.assertTrue(has_open_status(historical.replace("Nenhum", "blocker aberto")))
+
+    # @spec:AC-705
+    def test_validate_feature_rejects_open_structured_plan_and_accepts_historical_or_closed_plan(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            feature, mapping = _write_mapped_feature(repo)
+
+            open_plan = (
+                "# Plano\n\n"
+                "## Estado atual\n"
+                "Pendente\n\n"
+                "- T-601 (AC-601): tarefa\n"
+            )
+            (feature / "plan.md").write_text(open_plan, encoding="utf-8")
+            self.assertTrue(has_open_status(open_plan))
+            errors = validate_feature(repo, feature, full_map=mapping)
+            self.assertIn("plan.md indica estado aberto", errors)
+
+            accepted_plans = (
+                (
+                    "historical",
+                    "# Plano\n\n"
+                    "## Historico\n"
+                    "- estado: pending\n"
+                    "- execucao falhou\n\n"
+                    "## Estado atual\n"
+                    "Concluido\n\n"
+                    "- T-601 (AC-601): tarefa\n",
+                ),
+                (
+                    "closed",
+                    "# Plano\n\n"
+                    "## Fase atual\n"
+                    "Concluida\n\n"
+                    "## Bloqueios\n"
+                    "Nenhum\n\n"
+                    "- T-601 (AC-601): tarefa\n",
+                ),
+            )
+            for label, plan in accepted_plans:
+                with self.subTest(plan=label):
+                    (feature / "plan.md").write_text(plan, encoding="utf-8")
+                    self.assertFalse(has_open_status(plan))
+                    self.assertEqual(validate_feature(repo, feature, full_map=mapping), [])
 
     # @spec:AC-601
     def test_validate_feature_respects_an_explicit_empty_full_map(self) -> None:

@@ -43,6 +43,7 @@ def read_events(path: Path) -> list[dict[str, Any]]:
 
 
 def find_metadata(path: Path) -> dict[str, Any] | None:
+    metadata: dict[str, Any] | None = None
     try:
         with path.open(encoding="utf-8") as source_file:
             for line in source_file:
@@ -63,10 +64,15 @@ def find_metadata(path: Path) -> dict[str, Any] | None:
                 subagent = source.get("subagent")
                 spawn = (subagent or {}).get("thread_spawn") if isinstance(subagent, dict) else None
                 if isinstance(spawn, dict):
-                    return {"path": path, "rollout": path.name, "spawn": spawn}
+                    if metadata is None:
+                        metadata = spawn
+                    elif metadata != spawn:
+                        return None
     except OSError:
         return None
-    return None
+    if metadata is None:
+        return None
+    return {"path": path, "rollout": path.name, "spawn": metadata}
 
 
 def compact(candidate: dict[str, Any]) -> dict[str, Any]:
@@ -91,6 +97,19 @@ def rollout_matches(name: str, selector: str) -> bool:
     return bool(match and match.group(1).lower() == selector.lower())
 
 
+def terminal_rollout_id(name: str) -> str | None:
+    match = re.search(r"([0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})\.jsonl$", name, re.I)
+    return match.group(1).lower() if match else None
+
+
+def is_within_sessions_root(path: Path, sessions_root: Path) -> bool:
+    try:
+        path.resolve(strict=True).relative_to(sessions_root.resolve(strict=True))
+    except (OSError, ValueError, RuntimeError):
+        return False
+    return True
+
+
 def matches(candidate: dict[str, Any], args: argparse.Namespace) -> bool:
     spawn = candidate["spawn"]
     return (
@@ -101,6 +120,56 @@ def matches(candidate: dict[str, Any], args: argparse.Namespace) -> bool:
         and (not args.nickname or spawn.get("agent_nickname") == args.nickname)
         and (not args.parent_session_id or spawn.get("parent_thread_id") == args.parent_session_id)
     )
+
+
+def fallback_metadata_matches(candidate: dict[str, Any], args: argparse.Namespace) -> bool:
+    """Keep every selector other than agent_path as a hard constraint."""
+    spawn = candidate["spawn"]
+    return (
+        spawn.get("agent_path") in (None, args.agent_id)
+        and (not args.rollout_id or rollout_matches(candidate["rollout"], args.rollout_id))
+        and (not args.role or spawn.get("agent_role") == args.role)
+        and (not args.nickname or spawn.get("agent_nickname") == args.nickname)
+        and (not args.parent_session_id or spawn.get("parent_thread_id") == args.parent_session_id)
+    )
+
+
+def agent_id_fallback(
+    paths: list[Path], args: argparse.Namespace, sessions_root: Path,
+) -> tuple[dict[str, Any] | None, dict[str, Any] | None]:
+    """Resolve a legacy agent UUID only when filename and metadata agree."""
+    requested = args.agent_id
+    if not isinstance(requested, str) or not re.fullmatch(
+        r"[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}", requested, re.I,
+    ):
+        return None, None
+
+    matching_paths = [path for path in paths if terminal_rollout_id(path.name) == requested.lower()]
+    if not matching_paths:
+        return None, None
+    if any(not is_within_sessions_root(path, sessions_root) for path in matching_paths):
+        return None, {
+            "status": "not-available",
+            "reason": "rollout-id fallback found a path outside sessions root",
+        }
+    if len(matching_paths) != 1:
+        return None, {
+            "status": "ambiguous",
+            "reason": "more than one rollout filename matched the requested agent UUID",
+        }
+
+    candidate = find_metadata(matching_paths[0])
+    if not candidate:
+        return None, {
+            "status": "not-available",
+            "reason": "rollout-id fallback has no readable subagent metadata",
+        }
+    if not fallback_metadata_matches(candidate, args):
+        return None, {
+            "status": "not-available",
+            "reason": "rollout-id fallback metadata conflicts with the requested selectors",
+        }
+    return candidate, None
 
 
 def context_evidence(event: dict[str, Any]) -> dict[str, Any] | None:
@@ -521,10 +590,30 @@ def resolve(args: argparse.Namespace) -> dict[str, Any]:
     if not args.sessions_root.is_dir():
         return {"status": "not-available", "reason": "local Codex sessions directory was not found"}
 
-    files = args.sessions_root.rglob("rollout-*.jsonl")
-    candidates = [candidate for path in files if (candidate := find_metadata(path)) and matches(candidate, args)]
+    paths = list(args.sessions_root.rglob("rollout-*.jsonl"))
+    candidates = [
+        candidate
+        for path in paths
+        if is_within_sessions_root(path, args.sessions_root)
+        and (candidate := find_metadata(path))
+        and matches(candidate, args)
+    ]
+    fallback_resolution = None
     if not candidates:
-        return {"status": "not-found", "reason": "no matching subagent rollout was found"}
+        if args.agent_id:
+            fallback_candidate, fallback_error = agent_id_fallback(paths, args, args.sessions_root)
+            if fallback_error:
+                return fallback_error
+            if fallback_candidate:
+                candidates = [fallback_candidate]
+                fallback_resolution = {
+                    "method": "rollout-id-fallback",
+                    "fallback_used": True,
+                    "requested_agent_id": args.agent_id,
+                    "matched_rollout_id": terminal_rollout_id(fallback_candidate["rollout"]),
+                }
+        if not candidates:
+            return {"status": "not-found", "reason": "no matching subagent rollout was found"}
     if len(candidates) != 1:
         return {
             "status": "ambiguous",
@@ -536,11 +625,14 @@ def resolve(args: argparse.Namespace) -> dict[str, Any]:
     events = read_events(candidate["path"])
     contexts = [evidence for event in events if (evidence := context_evidence(event))]
     if not contexts:
-        return {
+        result = {
             "status": "not-available",
             "reason": "matching rollout has no readable turn_context model metadata",
             "candidate": compact(candidate),
         }
+        if fallback_resolution:
+            result["resolution"] = fallback_resolution
+        return result
     result: dict[str, Any] = {
         "status": "resolved",
         "source": "local-rollout-turn_context:last-readable",
@@ -549,6 +641,8 @@ def resolve(args: argparse.Namespace) -> dict[str, Any]:
         "turn_context_count": len(contexts),
         "candidate": compact(candidate),
     }
+    if fallback_resolution:
+        result["resolution"] = fallback_resolution
     usage = [evidence for event in events if (evidence := token_usage_evidence(event))]
     all_request_usage: list[dict[str, Any]] = []
     request_usage: list[dict[str, Any]] = []
@@ -653,6 +747,13 @@ def main() -> int:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
         print(f"Status: {payload['status']}")
+        resolution = payload.get("resolution")
+        if resolution and resolution.get("fallback_used"):
+            print(
+                "AGENT_ID_FALLBACK: não encontrou por agent-id/agent_path; "
+                "resolveu por rollout-id "
+                f"({resolution['requested_agent_id']} -> {resolution['matched_rollout_id']})."
+            )
         if payload["status"] == "resolved":
             effective = payload["effective"]
             print(f"Effective: {effective['model']} / {effective['reasoning_effort']}")

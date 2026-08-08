@@ -101,7 +101,11 @@ The first 12 historical delegated agents inherited the chat model and effort. Su
 
 Summary: agents used: 27; costed agents: 26; historical inherited configuration: 12; explicitly routed roles: 15. One implementer rollout is token-observed but not costed because its classifications are internally inconsistent.
 
-## Custo total da tarefa
+## Custo total da tarefa (histórico M4)
+
+Este total combinado pertence à execução histórica M4 abaixo. Ele não é o
+total da execução M5 atual; como um rollout M5 ficou sem estimativa completa,
+o combinado M5 permanece indisponível.
 
 - Escopo do total: 27 rollouts de subagentes delegados e 1 janela fechada do chat principal
 - Subagentes: 83,644,276 tokens observados; 26 agentes com estimativa; **US$ 16.70554000**
@@ -128,5 +132,95 @@ Summary: agents used: 27; costed agents: 26; historical inherited configuration:
 - Local rollout usage is observable telemetry, not a backend billing ledger.
 - The price table requires explicit maintenance from official pricing sources.
 - Tool and modality fees are excluded from the token-only estimate.
-- Main-chat attribution is final through the closed `task-window.json`; the combined total is recorded above.
+- Main-chat attribution is final through the closed `task-window.json` histórica M4; o combinado M5 permanece indisponível enquanto houver parcela sem estimativa.
 - The direct-symlink variant of AC-519 is skipped on this Windows host because creating that link requires an unavailable privilege; the directory-junction variant executes successfully. This is an environment-specific coverage limitation, not a functional blocker: the implementation resolves every candidate strictly and rejects destinations outside `--sessions-root`.
+
+> The historical M4 aggregates above are preserved unchanged. The following
+> section records only the current M5/WP-528 execution and must not be added to
+> those historical totals.
+
+## M5 — Current execution evidence (2026-08-07)
+
+### Focused tests
+
+| Command | Result | Scope |
+|---|---|---|
+| `python -B -m unittest tests.test_agent_evidence tests.test_task_window -v` | 72 focused tests passed; 2 symlink cases skipped by Windows policy | AC-523–AC-525, AC-527–AC-529 |
+| `python -B -m unittest tests.test_check_drift tests.test_interface_validation -v` | 22 validator/interface tests passed after correction | AC-526, AC-529 and validator/interface coverage |
+| `python -B -m unittest tests.test_agent_evidence tests.test_task_window tests.test_check_drift tests.test_interface_validation -v` | 96 tests passed; 2 symlink cases skipped by Windows policy | final focused gate |
+| `python -B -m unittest discover -s tests -p "test_*.py" -v` | 134 tests passed; 2 symlink cases skipped by Windows policy | final full gate |
+
+The first two rows are intermediate implementation/test-engineer evidence;
+the last two rows are the final independent results recorded below.
+
+### M5 acceptance traceability
+
+| Criterion | Current evidence | Status |
+|---|---|---|
+| AC-523 | `tests/test_agent_evidence.py` — exact UUID filename fallback resolves normal model/token/cost evidence | Focused evidence passed |
+| AC-524 | `tests/test_agent_evidence.py` — `resolution.fallback_used: true` and `AGENT_ID_FALLBACK` | Focused evidence passed |
+| AC-525 | `tests/test_agent_evidence.py` — partial, ambiguous, conflicting metadata and unsafe fallback rejection; RuntimeError containment | Final focused evidence passed; symlink case skipped by host policy |
+| AC-526 | `tests/test_check_drift.py` — required closed/matching task-window artifacts, schema/final flags and invalid unavailable cost rejection | Final focused evidence passed |
+| AC-527 | `tests/test_task_window.py` — `--final` rejects open windows and writes a closed final report | Focused evidence passed |
+| AC-528 | `tests/test_task_window.py` — `main-chat-orchestrator` scope and explicit exclusions | Focused evidence passed |
+| AC-529 | `tests/test_check_drift.py` — delegated/main-chat separation and unavailable-cost handling | Focused evidence passed |
+
+Current proof tags: `@spec:AC-523`, `@spec:AC-524`, `@spec:AC-525`, `@spec:AC-526`, `@spec:AC-527`, `@spec:AC-528`, `@spec:AC-529`.
+
+### Main-chat final report
+
+The required lifecycle is `start` → `close` → `report --final --output
+task-window-report.json`. The observed final artifact is
+`specs/agent-runtime-token-cost-evidence/task-window-report.json`:
+
+- Model: `gpt-5.6-luna`
+- Window usage: 66,354,354 tokens
+- Requests: 453
+- Cost: **US$1.71691256**, API-equivalent token-only estimate
+- Scope: `main-chat-orchestrator`
+- Explicit exclusions: delegated-agent rollouts, tool fees, modality fees and subscription billing
+- State: closed/final; not provisional
+
+### Delegated rollout costs observed in this execution
+
+| Rollout identifier | Role/result | Effective model/effort | Tokens | Requests | Cost/status |
+|---|---|---|---:|---:|---|
+| `019fdd91` | planner | `gpt-5.6-luna` / `max` | 4,053,637 | 37 | US$0.17304548 — estimated |
+| `019fdda2-b084` | implementer | `gpt-5.6-luna` / `max` | 2,056,730 | 27 | US$0.09089372 — estimated |
+| `019fdda2-f78` | implementer; duplicate WP-525 | `gpt-5.6-luna` / `max` | 4,867,750 | 48 | US$0.17931032 — estimated |
+| `019fddb1` | interrupted implementer; no change | `gpt-5.6-luna` / `max` | 1,089,684 | 18 | US$0.04983712 — estimated |
+| `019fddb8` | fallback implementer | `gpt-5.6-terra` / `high` | 635,951 | 14 | US$0.33646720 — estimated |
+| `019fddc2` | test engineer | `gpt-5.6-terra` / `high` | 622,025 | 13 | US$0.32775240 — estimated |
+| `019fddc5` | validator test engineer | `gpt-5.6-luna` / `max` | 595,264 | 12 | not-available — multiple/unknown observed models |
+| `019fddc7` | corrective implementer | `gpt-5.6-terra` / `high` | 246,241 | 7 | US$0.15009080 — estimated |
+| `019fddcb` | documentation implementer | `gpt-5.6-luna` / `max` | 2,389,104 | 28 | US$0.10157524 — estimated |
+| `019fddd4` | AC-525 test engineer | `gpt-5.6-terra` / `high` | 631,973 | 13 | US$0.33694920 — estimated |
+| `019fddd8` | documentation reviewer | `gpt-5.6-luna` / `low` | 460,082 | 12 | US$0.02397560 — estimated |
+| `019fdde2` | template correction implementer | `gpt-5.6-luna` / `max` | 529,464 | 12 | US$0.02731720 — estimated |
+| `019fddf0-9e6` | agent-evidence safety correction | `gpt-5.6-terra` / `high` | 258,396 | 8 | US$0.15726360 — estimated |
+| `019fddf0-b649` | validator safety correction | `gpt-5.6-terra` / `high` | 293,020 | 8 | US$0.16349560 — estimated |
+| `019fddf2` | corrective test engineer | `gpt-5.6-terra` / `high` | 431,163 | 10 | US$0.25795840 — estimated |
+| `019fddc9` | final verifier | `gpt-5.6-luna` / `max` | 13,139,646 | 128 | not-available — internally inconsistent token classifications |
+| `019fdde7` | first reviewer, corrective review | `gpt-5.6-luna` / `max` | 4,998,863 | 55 | not-available — internally inconsistent token classifications |
+| `019fddfb` | final reviewer | `gpt-5.6-terra` / `high` | 519,092 | 11 | US$0.29302040 — estimated |
+
+Known estimated delegated subtotal: **US$2.66895228** across 15 costed
+rollouts. Three delegated rollouts are `not-available` because their token
+classifications were inconsistent or multiple; therefore no combined task
+total is declared for this execution. This subtotal includes the final gates;
+the historical M4 combined total above remains separate.
+
+### M5 final gate and limitations
+
+Final gate: **PASS**. Verifier, Reviewer and Documentation Reviewer passed.
+Focused tests: 96 passed with 2 Windows symlink skips; full discovery: 134
+passed with the same 2 skips; `verify_feature.py` recorded 29 criteria with
+`passed: true`; `validate_feature.py` passed. The global `check_drift.py`
+still reports only pre-existing stale verification maps in three other
+features: `agent-runtime-model-evidence`, `mandatory-delegation-contract` and
+`validation-performance-refactor`.
+
+`verification.json` was regenerated by `verify_feature.py`. The final report
+remains closed and non-provisional. An unavailable delegated cost remains
+explicitly marked as such, and the current M5 combined total remains
+not-available rather than being recorded as zero.

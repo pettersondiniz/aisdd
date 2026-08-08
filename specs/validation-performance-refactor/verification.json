@@ -1,14 +1,15 @@
 {
   "feature": "validation-performance-refactor",
-  "generated_at": "2026-08-05T23:11:36.120908+00:00",
+  "generated_at": "2026-08-08T04:27:49.779765+00:00",
   "command": [
     "python",
+    "-B",
     "-m",
     "unittest",
     "discover",
     "-s",
     "tests",
-    "-v"
+    "-q"
   ],
   "exit_code": 0,
   "criteria": [
@@ -22,47 +23,47 @@
       {
         "path": "tests/test_check_drift.py",
         "line": 67,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       },
       {
         "path": "tests/test_check_drift.py",
         "line": 80,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       },
       {
         "path": "tests/test_check_drift.py",
-        "line": 91,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "line": 403,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       }
     ],
     "AC-602": [
       {
         "path": "tests/test_check_drift.py",
-        "line": 108,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "line": 420,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       }
     ],
     "AC-603": [
       {
         "path": "tests/test_check_drift.py",
-        "line": 132,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "line": 444,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       }
     ],
     "AC-604": [
       {
         "path": "tests/test_check_drift.py",
-        "line": 152,
-        "file_sha256": "d83fc1720192170648b8be75e766e4fcd047175d81ed7e23f7958d5abd3936a6",
+        "line": 464,
+        "file_sha256": "4d4797b7609189cfd7624bd98d65b5153d05d4b7d9ceeb8b7f000872cecf79af",
         "skipped": false
       }
     ]
   },
-  "mapping_sha256": "8c51cd2de3bfce486eefe7ee5e227b865161c3a5eb21aa0d178a9574974dd0ba",
+  "mapping_sha256": "240ea22b849e3367dedebadfc6cc46624eb52a66c2a5933263fdb4c2f5a97793",
   "passed": true
 }
