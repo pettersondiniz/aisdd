@@ -1,14 +1,11 @@
 {
   "feature": "mandatory-aisdd-triage-template",
-  "generated_at": "2026-08-06T04:36:13.080470+00:00",
+  "generated_at": "2026-08-10T15:12:58.637187+00:00",
   "command": [
     "python",
-    "-B",
     "-m",
-    "unittest",
-    "discover",
-    "-s",
-    "tests",
+    "pytest",
+    "tests/test_interface_validation.py",
     "-q"
   ],
   "exit_code": 0,
@@ -18,6 +15,12 @@
   ],
   "test_map": {
     "AC-001": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 71,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
       {
         "path": "tests/test_interface_validation.py",
         "line": 14,
@@ -33,6 +36,12 @@
     ],
     "AC-002": [
       {
+        "path": "tests/test_external_model_routing.py",
+        "line": 82,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
         "path": "tests/test_interface_validation.py",
         "line": 21,
         "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
@@ -46,6 +55,6 @@
       }
     ]
   },
-  "mapping_sha256": "c57562d5507a329dde6c15b90e791132d37d7cbb791deec2a19aa49ec629ca58",
+  "mapping_sha256": "09af32a96870e088cb1756f998b3693717dbf8c62867999b908df6178e44bd9c",
   "passed": true
 }

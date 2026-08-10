@@ -1,0 +1,243 @@
+{
+  "feature": "delegacao-externa-opencode-no-aisdd",
+  "generated_at": "2026-08-10T15:16:52.452940+00:00",
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "tests",
+    "-q"
+  ],
+  "exit_code": 0,
+  "criteria": [
+    "AC-001",
+    "AC-002",
+    "AC-003",
+    "AC-004",
+    "AC-005",
+    "AC-006",
+    "AC-007",
+    "AC-008",
+    "AC-009",
+    "AC-010",
+    "AC-011",
+    "AC-012",
+    "AC-013",
+    "AC-014",
+    "AC-015",
+    "AC-016",
+    "AC-017",
+    "AC-018",
+    "AC-019"
+  ],
+  "test_map": {
+    "AC-001": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 71,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 14,
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 27,
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
+        "skipped": false
+      }
+    ],
+    "AC-002": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 82,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 21,
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_interface_validation.py",
+        "line": 34,
+        "file_sha256": "fb4351de7e708e451167976c73a028ebda70330fe382d8fbf3ba038db7a26d34",
+        "skipped": false
+      }
+    ],
+    "AC-003": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 90,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-004": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 97,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-005": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 103,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-006": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 111,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-007": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 120,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 129,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-008": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 149,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-009": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 156,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-010": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 164,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 173,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-011": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 193,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 208,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-012": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 227,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-013": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 237,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-014": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 246,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 255,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-015": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 268,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      },
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 276,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-016": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 292,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-017": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 303,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-018": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 309,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ],
+    "AC-019": [
+      {
+        "path": "tests/test_external_model_routing.py",
+        "line": 317,
+        "file_sha256": "6f0091fc05a24b98bb521e554b4e7e4d465f68134fc247803af914dd92a21bde",
+        "skipped": false
+      }
+    ]
+  },
+  "mapping_sha256": "ef6d65ecb6250ef2c3e04f133073bd65f6b9c9a3fc69c30c2a32595e27dff237",
+  "passed": true
+}

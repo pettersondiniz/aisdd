@@ -22,7 +22,7 @@ def criteria(spec: Path) -> list[str]:
     return sorted(set(AC_PATTERN.findall(spec.read_text(encoding="utf-8"))))
 
 
-def test_map(repo: Path) -> dict[str, list[dict[str, object]]]:
+def collect_test_map(repo: Path) -> dict[str, list[dict[str, object]]]:
     mapped: dict[str, list[dict[str, object]]] = {}
     for path in repo.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES or any(part in IGNORED_PARTS for part in path.parts):
@@ -43,6 +43,14 @@ def test_map(repo: Path) -> dict[str, list[dict[str, object]]]:
                     "skipped": bool(SKIP_PATTERN.search(context)),
                 })
     return mapped
+
+
+def test_map(repo: Path) -> dict[str, list[dict[str, object]]]:
+    """Backward-compatible wrapper for the legacy helper name."""
+    return collect_test_map(repo)
+
+
+test_map.__test__ = False
 
 
 def mapping_digest(mapping: dict[str, list[dict[str, object]]]) -> str:

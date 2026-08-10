@@ -148,3 +148,22 @@ effort efetivos, e separa `delegated_subtotal` de `unavailable`. A guarda de
 roteamento pode ser usada antes do spawn com `model_routing.py --require-available`;
 um mismatch exige override e motivo explícito. O chat principal continua sendo
 medido por `task_window.py` quando a feature declarar essa atribuição.
+## Roteamento externo read-only
+
+Uma feature pode declarar uma rota externa somente em
+`roles.<role>.by_class.<Tn>.external`. O adapter deve consultar
+`external_models` antes de `delegate_start`, exigir o `id` literal completo e
+iniciar o trabalho com `profile=read`. `write` é rejeitado antes de qualquer
+chamada MCP; resultado com `changed_paths` não vazio também é rejeitado.
+
+Falha de descoberta, modelo ausente, start, wait, timeout, cancelamento ou
+mudança reportada usa primeiro o fallback OpenAI específico da role/classe e
+depois o fallback geral. Não há retry externo na mesma execução. A rota externa
+é opcional: sem `[external]`, o caminho OpenAI não consulta o MCP e permanece
+compatível com instalações sem Agent Bridge.
+
+O roteamento é somente leitura e não altera configuração global, sessões do
+runtime nem projetos consumidores. Custos, tokens ou modelo efetivo externos
+sem telemetria são registrados como `not-available`, nunca como zero. Registre
+modelo, job/session, estado, erro, mudanças, fallback e resultado em evidência
+v2; não trate o resultado externo como rollout OpenAI.

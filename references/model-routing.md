@@ -128,3 +128,25 @@ The collector uses only explicit IDs, preserves effective settings, tokens,
 cost and correlation warnings, and emits a separate delegated subtotal. Missing,
 ambiguous or unpriced rollouts remain `not-available`; unavailable cost is never
 converted to zero.
+
+## Rota externa Agent Bridge/OpenCode
+
+A rota externa é opcional e somente read-only. Ela só é válida em
+`roles.<role>.by_class.<Tn>.external` com `provider = "agent-bridge"` e
+`profile = "read"`. O adapter consulta `external_models` antes de
+`delegate_start`, compara o `id` literalmente e acompanha o job por
+`delegate_wait`. `provider/model` e `provider/model#max` são identificadores
+distintos; não há alias, regex ou normalização.
+
+Um resultado só é aceito em estado terminal bem-sucedido e com
+`changed_paths=[]`. Configuração inválida, falha de descoberta, modelo ausente,
+start, wait, timeout, cancelamento ou mudança reportada aciona o fallback OpenAI
+específico e, se necessário, o fallback geral. Não há retry externo na mesma
+execução. `profile=write` é rejeitado antes do MCP.
+
+Sem `[external]`, nenhuma descoberta MCP é feita e o roteamento OpenAI continua
+inalterado, mesmo que o Agent Bridge esteja indisponível. Registre tentativa,
+modelo, job/session, estado, erro, mudanças, fallback e resultado na evidência;
+resultado externo não é rollout OpenAI. Telemetria ou preço ausente permanece
+`not-available`, nunca zero. Essa rota não altera instalação global, sessões do
+runtime ou projetos consumidores.

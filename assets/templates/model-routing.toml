@@ -57,6 +57,14 @@ model = "gpt-5.6-terra"
 reasoning_effort = "high"
 tier = "robust"
 
+# Optional read-only Agent Bridge route. The OpenAI fields above remain the
+# specific fallback; the global [fallback] table remains the general fallback.
+# The external model is matched literally against external_models.id.
+# [roles.implementer.by_class.T3.external]
+# provider = "agent-bridge"
+# model = "provider/model#max"
+# profile = "read"
+
 [roles.implementer.by_class.T4]
 model = "gpt-5.6-terra"
 reasoning_effort = "max"
