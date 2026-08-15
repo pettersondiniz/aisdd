@@ -10,9 +10,6 @@ import sys
 import tomllib
 from typing import Any
 
-from agent_bridge import delegate_read_only, route_with_fallback
-
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "assets" / "templates" / "model-routing.toml"
 USER_CONFIG = Path.home() / ".codex" / "aisdd" / "model-routing.toml"
@@ -218,13 +215,6 @@ def resolve(
         "tier": tier_name,
         "capability_available": True,
     }
-    if profile_source == "by_class" and isinstance(profile.get("external"), dict):
-        external = profile["external"]
-        base["external"] = {
-            "provider": external.get("provider"),
-            "model": external.get("model"),
-            "profile": external.get("profile"),
-        }
     exact = next((item for item in availability if item["id"] == model), None)
     if exact:
         available_effort = choose_effort(exact["reasoning_efforts"], effort, order)
@@ -250,48 +240,6 @@ def resolve(
         "candidates": candidates_found,
         "fallback": fallback,
     }
-
-
-def delegate_external(
-    recommendation: dict[str, Any],
-    client: Any,
-    *,
-    workspace: str,
-    prompt: str,
-    session_id: str | None = None,
-    timeout_ms: int | None = None,
-) -> dict[str, Any]:
-    """Execute the optional external route from a resolved recommendation."""
-    external = recommendation.get("external")
-    if not isinstance(external, dict):
-        return {"ok": False, "stage": "not-configured", "cost": "not-available"}
-    return delegate_read_only(
-        client,
-        external,
-        workspace=workspace,
-        prompt=prompt,
-        session_id=session_id,
-        timeout_ms=timeout_ms,
-    )
-
-
-def route_with_external_fallback(
-    recommendation: dict[str, Any],
-    client: Any,
-    *,
-    workspace: str,
-    prompt: str,
-    openai_specific: Any,
-    openai_general: Any,
-    session_id: str | None = None,
-    timeout_ms: int | None = None,
-) -> dict[str, Any]:
-    """Run external once, then the supplied specific and general OpenAI routes."""
-    return route_with_fallback(
-        lambda: delegate_external(recommendation, client, workspace=workspace, prompt=prompt, session_id=session_id, timeout_ms=timeout_ms),
-        openai_specific,
-        openai_general,
-    )
 
 
 def validate_request(
