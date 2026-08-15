@@ -55,7 +55,11 @@ incluem ainda Architect e Documentation Reviewer. Em T2, Documentation Reviewer
 não é um requisito adicional. Em T3/T4, Documentation Reviewer é obrigatório
 por classe. `test-engineer` cria ou altera testes, `verifier` executa a validação
 final e `reviewer` revisa de forma independente. `tester` permanece alias v1 de
-`test-engineer`.
+`test-engineer`. No contrato v2, Planner pode materializar somente
+`specs/<slug>/spec.md`, `plan.md`, `status.md`, `work-packages.json` e
+`delegation-evidence.json`; isso exclui `evidence.md`, `verification.json`,
+`task-window.json`, código e testes. Architect pode registrar somente ADRs em
+`docs/architecture/decisions/ADR-*.md`.
 
 Um blocker, critério falho ou correção exigida pelo Test Engineer, Verifier,
 Reviewer ou Documentation Reviewer impede a conclusão e abre um novo WP de

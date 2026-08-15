@@ -58,8 +58,11 @@ fallback. Cada entrada de `delegations` deve conter `fallback` como objeto com
 `used` booleano; a ausência falha, e `{"used": false}` deve permanecer limpo.
 O `scope` de cada Work Package é um objeto de caminhos relativos que pode
 declarar `write`, `read`, `execute` e `forbidden`; `write` e `forbidden` devem
-ser declarados mesmo vazios. Roles read-only usam `scope.write: []` e não
-escrevem. Para fallback usado de `verifier`, `reviewer` ou
+ser declarados mesmo vazios. Roles sem escrita usam `scope.write: []`; Planner e
+Architect podem escrever apenas nas allowlists documentadas no contrato. Para
+fallback usado de Planner ou Architect, registre `direct_work.operation` como
+`write` e valide o escopo contra a allowlist da role e `scope.write`. Para
+fallback usado de `verifier`, `reviewer` ou
 `documentation-reviewer`, registre `direct_work.operation` como `read` ou
 `execute` e use, respectivamente, `scope.read` ou `scope.execute` como escopo
 permitido; para `implementer`, use `operation: "write"` e `scope.write`.

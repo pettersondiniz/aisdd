@@ -45,8 +45,8 @@ KNOWN_ROLES = {
 }
 ROLE_CAPABILITIES = {
     "orchestrator": {"inspect", "coordinate", "delegate", "track-dependencies", "consolidate-evidence"},
-    "planner": {"inspect", "plan", "plan-technical", "plan-execution"},
-    "architect": {"inspect", "design", "adr"},
+    "planner": {"inspect", "plan", "plan-technical", "plan-execution", "write-planning"},
+    "architect": {"inspect", "design", "adr", "write-adr"},
     "implementer": {"inspect", "implement"},
     "test-engineer": {"inspect", "design-tests", "write-tests"},
     "verifier": {"inspect", "build", "run-tests", "verify-final"},
@@ -80,11 +80,18 @@ CAPABILITY_ALIASES = {
 }
 READ_ONLY_ROLES = {
     "orchestrator",
-    "planner",
-    "architect",
     "verifier",
     "reviewer",
     "documentation-reviewer",
+}
+RESTRICTED_WRITE_ROLES = {"planner", "architect"}
+ROLE_WRITE_PATTERNS = {
+    "planner": re.compile(
+        r"^(?:specs/[^/]+/(?:spec|plan|status)\.md|"
+        r"specs/[^/]+/(?:work-packages|delegation-evidence)\.json)$",
+        re.IGNORECASE,
+    ),
+    "architect": re.compile(r"^docs/architecture/decisions/ADR-[^/]+\.md$", re.IGNORECASE),
 }
 READ_ONLY_OPERATIONS = frozenset({"read", "execute"})
 INDEPENDENT_ROLES = {
@@ -367,7 +374,7 @@ def _normalize_package(package: dict[str, Any], index: int) -> tuple[dict[str, A
     write_scope, scope_errors = _validated_paths(
         raw_write_scope,
         f"WP {label}: escopo de escrita",
-        required=role not in READ_ONLY_ROLES,
+        required=role not in READ_ONLY_ROLES and role not in RESTRICTED_WRITE_ROLES,
     )
     read_scope, read_errors = _validated_paths(
         raw_read_scope,
@@ -390,6 +397,22 @@ def _normalize_package(package: dict[str, Any], index: int) -> tuple[dict[str, A
     errors.extend(forbidden_errors)
     if role in READ_ONLY_ROLES and isinstance(raw_write_scope, list) and raw_write_scope:
         errors.append(f"WP {label}: role read-only exige scope.write vazio")
+    if role in RESTRICTED_WRITE_ROLES:
+        write_capability = "write-planning" if role == "planner" else "write-adr"
+        if (
+            write_scope
+            and MINIMUM_OPERATIONAL_CAPABILITY_BY_ROLE.get(role) in normalized_capabilities
+            and write_capability not in normalized_capabilities
+        ):
+            errors.append(
+                f"WP {label}: role {role} exige capability {write_capability} quando scope.write não está vazio"
+            )
+        policy = ROLE_WRITE_PATTERNS[role]
+        for scope_path in write_scope:
+            if not policy.fullmatch(scope_path):
+                errors.append(
+                    f"WP {label}: role {role} só pode escrever no escopo restrito; caminho não permitido: {scope_path}"
+                )
     for scope_name, scope_paths, scope_label in (
         ("write", write_scope, "escrita"),
         ("read", read_scope, "leitura"),
@@ -806,7 +829,11 @@ def _fallback_errors(entry: dict[str, Any], package: dict[str, Any]) -> list[str
                     f"evidência {package_id}: scope.{operation} ausente ou vazio para fallback read-only"
                 )
         else:
-            if operation_present and operation != "write":
+            if role in RESTRICTED_WRITE_ROLES and (not operation_present or not operation):
+                errors.append(
+                    f"evidência {package_id}: role {role} exige direct_work.operation explícita: write"
+                )
+            elif operation_present and operation != "write":
                 errors.append(
                     f"evidência {package_id}: direct_work.operation deve ser write quando informado"
                 )

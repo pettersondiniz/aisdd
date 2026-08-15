@@ -81,15 +81,18 @@ Os dois artefatos v2 devem declarar `contract: "v2"` e
   listas `write`, `read`, `execute` e `forbidden`. `scope.write` e
   `scope.forbidden` devem ser declarados mesmo quando vazios; `read` e
   `execute` são opcionais e, quando presentes, também são listas de caminhos;
-  roles read-only devem usar `scope.write: []`, enquanto `implementer` e
-  `test-engineer` devem declarar uma lista `scope.write` não vazia;
+  roles sem escrita devem usar `scope.write: []`; `planner`, `architect`,
+  `implementer` e `test-engineer` devem declarar uma lista `scope.write` não
+  vazia e sujeita à allowlist da role;
 - `acceptance_criteria`;
 - `state`.
 
-No v2, as roles read-only são `orchestrator`, `planner`, `architect`,
-`verifier`, `reviewer` e `documentation-reviewer`: elas não escrevem e mantêm
-`scope.write` vazio. `implementer` e `test-engineer` são as roles que podem
-declarar escrita no escopo autorizado do WP.
+No v2, `orchestrator`, `verifier`, `reviewer` e `documentation-reviewer` são
+read-only e mantêm `scope.write` vazio. `planner` pode escrever somente
+`specs/<slug>/spec.md`, `plan.md`, `status.md`, `work-packages.json` e
+`delegation-evidence.json`; `architect` pode escrever somente
+`docs/architecture/decisions/ADR-*.md`. Implementer e Test Engineer podem
+declarar escrita apenas no escopo autorizado do WP.
 
 `owner.role`, quando fornecido, é apenas informação auxiliar validável; nunca
 substitui a chave `role` explícita do WP, que deve existir e ser conhecida.
@@ -163,9 +166,12 @@ direto invalida a evidência.
 
 O fallback de uma role read-only não pode escrever. Em especial, para WPs de
 `verifier`, `reviewer` ou `documentation-reviewer`, `fallback.used: true` exige
-`direct_work.operation` explícita com valor `read` ou `execute`. O caminho de
-cada item de `direct_work.scope` deve estar contido, respectivamente, em
-`scope.read` ou `scope.execute` do WP e não pode atingir `scope.forbidden`;
+`direct_work.operation` explícita com valor `read` ou `execute`. Para Planner e
+Architect, o fallback deve declarar `direct_work.operation: "write"`; cada
+item de `direct_work.scope` deve permanecer na allowlist da role e em
+`scope.write` do WP. O caminho de cada item de `direct_work.scope` read-only
+deve estar contido, respectivamente, em `scope.read` ou `scope.execute` do WP
+e não pode atingir `scope.forbidden`;
 `direct_work.write`/`writes` não são permitidos. No fallback canônico de
 `implementer`, use `direct_work.operation: "write"` e valide
 `direct_work.scope` contra `scope.write`. A mesma regra de operação e escopo

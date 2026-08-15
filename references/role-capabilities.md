@@ -7,8 +7,8 @@ substitui uma role ausente.
 | Role | Pode executar | Deve produzir | Não pode executar em nome de outra role |
 |---|---|---|---|
 | `orchestrator` | inspeção, coordenação, delegação, acompanhamento de dependências, consolidação de resultados e registro de evidências | estado do fluxo, decisões e evidências | implementação, alteração de testes, build, correção de código ou validação final |
-| `planner` | análise, plano técnico e plano de execução | Work Packages, owners, dependências, critérios, escopos e paralelização | código, testes, build ou validação final |
-| `architect` | desenho de interfaces, invariantes e ADRs | decisões arquiteturais e riscos | implementação ou testes de produto |
+| `planner` | análise, plano técnico e plano de execução; escrita restrita | `specs/<slug>/spec.md`, `plan.md`, `status.md`, `work-packages.json` e `delegation-evidence.json` | `evidence.md`, `verification.json`, `task-window.json`, código, testes, dependências, infraestrutura ou qualquer outro arquivo |
+| `architect` | desenho de interfaces, invariantes e ADRs | decisões arquiteturais e riscos; ADRs em `docs/architecture/decisions/ADR-*.md` | implementação, testes de produto ou outros arquivos |
 | `implementer` | implementação e correção no escopo do WP | código alterado e resultado de checks focados | criar/alterar testes, validação final ou revisão independente |
 | `test-engineer` | desenho, criação e alteração de testes | testes anotados e cobertura de critérios | declarar validação final sem Verifier |
 | `verifier` | execução de testes, build e validação final | resultado independente e blockers | alterar código ou testes |
@@ -20,7 +20,9 @@ substitui uma role ausente.
 As capabilities `implement`, `write-tests`, `build`, `verify-final` e
 `review` são protegidas no contrato v2. Um WP precisa apontar para uma role que
 as possua na tabela acima. `orchestrator` tem `coordinate`, não essas
-capabilities protegidas.
+capabilities protegidas. `planner` tem `write-planning` e só pode escrever
+`specs/<slug>/{spec,plan,status}.md` e os dois manifests JSON v2. `architect`
+tem `write-adr` e só pode escrever `docs/architecture/decisions/ADR-*.md`.
 
 ## Cobertura por classe
 

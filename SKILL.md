@@ -91,8 +91,13 @@ Follow `references/lifecycle.md`: discovery → specification → design → pla
 
 Use the custom agents in `agents/` when the Codex runtime supports subagents. Agent files are project-scoped when copied to `.codex/agents/` or globally available when copied to `~/.codex/agents/`.
 
-- `planner`: clarify scope, dependencies, sequencing, and risks; read-only.
-- `architect`: define interfaces, data flow, invariants, and ADR candidates; read-only.
+- `planner`: clarify scope, dependencies, sequencing, and risks; may write only
+  feature planning artifacts under `specs/<slug>/` (`spec.md`, `plan.md`,
+  `status.md`, `work-packages.json`, `delegation-evidence.json`); it must not
+  write `evidence.md`, `verification.json`, `task-window.json`, code or tests.
+- `architect`: define interfaces, data flow, invariants, and ADR candidates;
+  may write only `docs/architecture/decisions/ADR-*.md`; it must not write code,
+  tests or other feature/runtime artifacts.
 - `implementer`: execute one approved plan milestone at a time; do not create or
   alter tests.
 - `test-engineer`: create or alter tests; do not claim final validation.

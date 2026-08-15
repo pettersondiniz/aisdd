@@ -63,8 +63,9 @@ plano técnico e do plano de execução; não crie uma role de planejamento nova
 | WP-001 |  |  |  |  |  |  |  | pending |
 
 Registre o digest de `work-packages.json` na evidência. Use `scope.write: []` e
-`scope.forbidden: []` explicitamente para roles read-only; roles de escrita
-devem declarar `scope.write` não vazio. Achados de Verifier, Reviewer ou
+`scope.forbidden: []` explicitamente para roles sem escrita; Planner, Architect
+e roles de implementação devem declarar `scope.write` não vazio e permitido
+pela allowlist da role. Achados de Verifier, Reviewer ou
 Documentation Reviewer, assim como blockers ou critérios falhos do Test Engineer,
 devem gerar um novo WP de correção para a role adequada; o fluxo retorna ao
 Implementer e repete Test Engineer, Verifier e os revisores aplicáveis; não

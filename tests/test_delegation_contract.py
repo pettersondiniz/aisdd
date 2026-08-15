@@ -37,17 +37,33 @@ def _package(
         "test-engineer": "write-tests",
         "verifier": "verify-final",
         "reviewer": "review",
-        "planner": "plan-execution",
-        "architect": "design",
+        "planner": "write-planning",
+        "architect": "write-adr",
         "documentation-reviewer": "review-docs",
     }[role]
+    capabilities = [capability]
+    if role == "planner":
+        capabilities = ["plan-execution", "write-planning"]
+    elif role == "architect":
+        capabilities = ["design", "write-adr"]
+    if path is None and role == "planner":
+        planner_artifacts = {
+            "WP-1": "plan.md",
+            "WP-8": "spec.md",
+            "WP-9": "status.md",
+            "WP-10": "work-packages.json",
+            "WP-11": "delegation-evidence.json",
+        }
+        path = f"specs/example/{planner_artifacts.get(package_id, 'plan.md')}"
+    elif path is None and role == "architect":
+        path = "docs/architecture/decisions/ADR-0001-example.md"
     scope: object = {"write": [], "forbidden": []} if path is None else {"write": [path], "forbidden": ["runtime/"]}
     return {
         "id": package_id,
         "owner": f"owner-{package_id.lower()}",
         "role": role,
         "depends_on": dependencies or [],
-        "capabilities": [capability],
+        "capabilities": capabilities,
         "scope": scope,
         "acceptance_criteria": ["AC-704"],
         "state": state,
@@ -414,6 +430,28 @@ class DelegationContractTests(unittest.TestCase):
             any("owner.role não corresponde" in error for error in mismatch_result["errors"]),
             mismatch_result["errors"],
         )
+
+    # @spec:AC-712
+    def test_planner_and_architect_writes_are_restricted_to_document_allowlists(self) -> None:
+        planner = _valid_work_packages()
+        packages = planner["work_packages"]
+        assert isinstance(packages, list)
+        planner_wp = next(package for package in packages if package["role"] == "planner")
+        planner_wp["scope"] = {"write": ["scripts/change.py"], "forbidden": []}
+        result = validate_work_packages(planner)
+        self.assertFalse(result["valid"])
+        self.assertTrue(any("escopo restrito" in error for error in result["errors"]))
+
+        architect = _valid_work_packages()
+        packages = architect["work_packages"]
+        assert isinstance(packages, list)
+        architect_wp = next(package for package in packages if package["role"] == "architect")
+        architect_wp["scope"] = {"write": ["docs/architecture/decisions/ADR-0001.md"], "forbidden": []}
+        self.assertTrue(validate_work_packages(architect)["valid"])
+        architect_wp["scope"] = {"write": ["docs/architecture/decisions/ADR-0001.md.bak"], "forbidden": []}
+        result = validate_work_packages(architect)
+        self.assertFalse(result["valid"])
+        self.assertTrue(any("escopo restrito" in error for error in result["errors"]))
 
     # @spec:AC-704
     def test_minimum_execution_dependencies_fail_closed(self) -> None:

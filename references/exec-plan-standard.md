@@ -25,7 +25,11 @@ dependência serial explícita quando representarem uma correção; sem essa
 relação, o validador de contrato deve rejeitá-los.
 
 O plano técnico explica o que e por quê; o plano de execução explica quem pode
-alterar quais arquivos, em que ordem e com qual evidência. Achados do Verifier,
+alterar quais arquivos, em que ordem e com qual evidência. Planner pode escrever
+somente `specs/<slug>/spec.md`, `plan.md`, `status.md`, `work-packages.json` e
+`delegation-evidence.json`; não escreve `evidence.md`, `verification.json`,
+`task-window.json`, código ou testes. Architect pode escrever somente
+`docs/architecture/decisions/ADR-*.md`. Achados do Verifier,
 Reviewer ou Documentation Reviewer retornam como novo WP de correção para a
 role adequada; o mesmo vale para blocker ou critério falho do Test Engineer.
 Depois da correção, o fluxo retorna ao Implementer e repete Test Engineer,
