@@ -1,148 +1,58 @@
-[fallback]
-model = "inherit"
-reasoning_effort = "inherit"
+# Model preferences for AISDD. If gpt-6-luna is unavailable, inherit the
+# compatible runtime model; model routing does not select a subagent protocol.
 
-[aliases]
-tester = "test-engineer"
-
-[tiers.economy]
-model_patterns = ["(?i)(?:^|-)5\\.6-luna$", "(?i)(?:^|-)5\\.4-mini$"]
-effort_order = ["low", "medium", "high", "xhigh", "max"]
-
-[tiers.standard]
-model_patterns = ["(?i)(?:^|-)5\\.6-terra$", "(?i)(?:^|-)5\\.4$"]
-effort_order = ["medium", "high", "low", "xhigh", "max", "ultra"]
-
-[tiers.robust]
-model_patterns = ["(?i)(?:^|-)5\\.6-terra$", "(?i)(?:^|-)5\\.4$", "(?i)(?:^|-)5\\.6-sol$"]
-effort_order = ["high", "max", "medium", "xhigh", "ultra", "low"]
-
-[roles.explorer]
-model = "gpt-5.6-luna"
-reasoning_effort = "low"
-tier = "economy"
+[defaults]
+model = "gpt-6-luna"
+effort = "inherit"
 
 [roles.planner]
-model = "gpt-5.6-terra"
-reasoning_effort = "medium"
-tier = "standard"
+model = "gpt-6-luna"
+effort = "medium"
 
-[roles.planner.by_class.T2]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.planner.by_risk.low]
+effort = "low"
 
-[roles.planner.by_class.T3]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.planner.by_risk.medium]
+effort = "medium"
 
-[roles.planner.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
+[roles.planner.by_risk.high]
+effort = "high"
 
 [roles.implementer]
-model = "gpt-5.6-terra"
-reasoning_effort = "medium"
-tier = "standard"
+model = "gpt-6-luna"
+effort = "high"
 
-[roles.implementer.by_class.T2]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.implementer.by_risk.low]
+effort = "medium"
 
-[roles.implementer.by_class.T3]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.implementer.by_risk.medium]
+effort = "high"
 
-[roles.implementer.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
+[roles.implementer.by_risk.high]
+effort = "xhigh"
 
-[roles.test-engineer]
-model = "gpt-5.6-terra"
-reasoning_effort = "medium"
-tier = "standard"
+[roles.tester]
+model = "gpt-6-luna"
+effort = "medium"
 
-[roles.test-engineer.by_class.T2]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.tester.by_risk.low]
+effort = "low"
 
-[roles.test-engineer.by_class.T3]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.tester.by_risk.medium]
+effort = "medium"
 
-[roles.test-engineer.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
-
-[roles.verifier]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
-
-[roles.verifier.by_class.T1]
-model = "gpt-5.6-terra"
-reasoning_effort = "medium"
-tier = "standard"
-
-[roles.verifier.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
+[roles.tester.by_risk.high]
+effort = "high"
 
 [roles.reviewer]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "standard"
+model = "gpt-6-luna"
+effort = "high"
 
-[roles.reviewer.by_class.T2]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.reviewer.by_risk.low]
+effort = "medium"
 
-[roles.reviewer.by_class.T3]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.reviewer.by_risk.medium]
+effort = "high"
 
-[roles.reviewer.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
-
-[roles.architect]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "standard"
-
-[roles.architect.by_class.T3]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
-
-[roles.architect.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "max"
-tier = "robust"
-
-[roles.documentation-reviewer]
-model = "gpt-5.6-luna"
-reasoning_effort = "low"
-tier = "economy"
-
-[roles.documentation-reviewer.by_class.T3]
-model = "gpt-5.6-luna"
-reasoning_effort = "medium"
-tier = "standard"
-
-[roles.documentation-reviewer.by_class.T4]
-model = "gpt-5.6-terra"
-reasoning_effort = "high"
-tier = "robust"
+[roles.reviewer.by_risk.high]
+effort = "xhigh"

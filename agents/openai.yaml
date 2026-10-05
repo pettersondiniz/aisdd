@@ -1,3 +1,4 @@
-display_name: AISDD
-short_description: Especificações, planos e agentes para entrega de software
-default_prompt: Use $aisdd para classificar a mudança, especificar, planejar, implementar, validar, revisar e documentar o trabalho.
+interface:
+  display_name: "AISDD Lite"
+  short_description: "Delegated software delivery with lightweight planning"
+  default_prompt: "Use AISDD Lite to triage, delegate, implement, validate, and close this software task with bounded corrections."
