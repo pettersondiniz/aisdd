@@ -86,6 +86,15 @@ Typical routing is:
 - medium: planner → implementer → tester;
 - high: planner → implementer → tester, with reviewer when requested.
 
+### Packaged custom agent profiles
+
+This distribution includes Codex profiles for `planner`, `implementer`,
+`tester`, and `reviewer` in `agents/*.toml`. The skill package does not install
+them automatically. To make them available as personal Codex agents, copy the
+profiles to `~/.codex/agents/` (on Windows, `%USERPROFILE%\.codex\agents\`).
+When the profiles are not installed or the runtime cannot select them, use the
+agent types available in the current runtime and follow the fallback above.
+
 The main agent coordinates, integrates results, and resolves conflicts. If a
 specialized agent is genuinely unavailable after the runtime checks above,
 use the main-agent fallback when the user did not require that exact agent or
